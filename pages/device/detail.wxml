@@ -1,0 +1,78 @@
+<view class="app-container">
+	<van-cell class="device-intro-box flex">
+		<view slot="title" class="device-intro-content flex">
+			<view class="device-icon-box">
+				<image class="device-icon" src="/assets/device/device-icon.png"></image>
+			</view>
+			<view class="flex-sub">
+				<view class="device-name-box">
+					<text class="device-name">{{ deviceDetail.deviceName }}</text>
+				</view>
+				<view class="device-info-box">
+					<text class="device-info-text-box">创建时间：{{ deviceDetail.created }}</text>
+				</view>
+			</view>
+		</view>
+	</van-cell>
+	<view class="device-menu-wrap">
+		<van-grid class="device-menu" square border="{{ false }}">
+			<van-grid-item class="device-menu-item" use-slot>
+				<view data-item="{{deviceDetail}}" bindtap="goDeviceAlarm">
+					<image class="device-menu-img" src="/assets/device/ic_booth1.png" />
+					<text class="device-menu-name">报警信息</text>
+				</view>
+			</van-grid-item>
+			<van-grid-item class="device-menu-item" use-slot>
+				<view data-item="{{deviceDetail}}" bindtap="goDeviceRealtimeLocation">
+					<image class="device-menu-img" src="/assets/device/ic_booth2.png" />
+					<text class="device-menu-name">实时定位</text>
+				</view>
+			</van-grid-item>
+			<van-grid-item class="device-menu-item" use-slot>
+				<view data-item="{{deviceDetail}}" bindtap="goDeviceTraceReplay">
+					<image class="device-menu-img" src="/assets/device/ic_booth3.png" />
+					<text class="device-menu-name">轨迹回放</text>
+				</view>
+			</van-grid-item>
+			<van-grid-item class="device-menu-item" use-slot>
+				<view bindtap="goDeviceElectricFence">
+					<image class="device-menu-img" src="/assets/device/ic_booth4.png" />
+					<text class="device-menu-name">电子围栏</text>
+				</view>
+			</van-grid-item>
+			<van-grid-item class="device-menu-item" use-slot>
+				<view data-item="{{deviceDetail}}" bindtap="goDeviceCommandSend">
+					<image class="device-menu-img" src="/assets/device/ic_booth5.png" />
+					<text class="device-menu-name">指令下发</text>
+				</view>
+			</van-grid-item>
+			<van-grid-item class="device-menu-item" use-slot>
+				<view bindtap="goDeviceUnlockingMachine">
+					<image class="device-menu-img" src="/assets/device/ic_booth6.png" />
+					<text class="device-menu-name">解锁机申请</text>
+				</view>
+			</van-grid-item>
+		</van-grid>
+	</view>
+  <van-cell-group title="基本信息">
+    <van-cell title="物标识" value="{{ deviceDetail.assetId }}" />
+		<van-cell title="设备类型" value="{{ deviceDetail.model.category.length ? deviceDetail.model.category : '无' }}" />
+		<van-cell title="设备分类" value="{{ deviceDetail.model.categoryPath || '无' }}" />
+		<van-cell title="所属区域" value="{{ deviceDetail.country || '无' }}{{ deviceDetail.state }}{{ deviceDetail.city }}{{ deviceDetail.district }}" />
+		<van-cell title="品牌" value="{{ deviceDetail.thingInfo.manufacturer || '无' }}" />
+		<van-cell title="用户名称" value="{{ userInfo.displayName }}" />
+  </van-cell-group>
+  <van-cell-group title="实时工况">
+		<van-panel wx:for="{{deviceRealData}}" wx:for-index="key" wx:for-item="value" custom-class="custom-panel" use-footer-slot>
+			<view class="flex justify-between" style="font-size: 14px;padding: 10px 15px;border-bottom: 1px solid #ebedf0;" slot="header">
+				<view>属性名</view>
+				<view style="font-size: 12px;">属性ID：{{ key }}</view>
+			</view>
+			<view class="flex align-center justify-center" style="padding: 30px 0;">{{ value.value }}</view>
+			<view class="text-right" slot="footer" style="font-size: 14px;">
+				{{ value.timeCloud }}
+			</view>
+		</van-panel>
+  </van-cell-group>
+	<van-toast id="van-toast" />
+</view>

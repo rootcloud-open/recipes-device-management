@@ -1,0 +1,254 @@
+/*
+* Licensed Materials - Property of ROOTCLOUD
+* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+*
+* The source code for this program is not published or
+* otherwise divested of its trade secrets
+*/
+
+.index-page {
+  padding-bottom: 20rpx;
+}
+
+.index-device-total {
+  padding: 80rpx 0;
+  background-color: white;
+}
+
+.index-device-total .device-total-title {
+  height: 28rpx;
+  width: 112rpx;
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 28rpx;
+  letter-spacing: 0;
+  line-height: 28rpx;
+  margin-bottom: 24rpx;
+}
+
+.index-device-status {
+  position: relative;
+  margin-bottom: 6rpx;
+}
+
+.index-device-total .device-total-num {
+  height: 80rpx;
+  width: 192rpx;
+  color: #505363;
+  font-family: "DIN Alternate";
+  font-size: 100rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 80rpx;
+  text-align: center;
+}
+
+.index-device-status .device-status-img {
+  height: 14rpx;
+  width: 14rpx;
+  margin-right: 21rpx;
+}
+
+.index-device-status .device-status-title {
+  color: #9EA5B2;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}
+
+.index-device-status .device-status-num {
+  color: #505363;
+  font-family: "DIN Alternate";
+  font-size: 48rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40rpx;
+  margin-top: 12rpx;
+}
+
+.index-device-status .device-status-line {
+  position: absolute;
+  right: 0;
+  height: 40rpx;
+  width: 2rpx;
+  background-color: #EBECEF;
+}
+
+.index-device-alarm-box {
+  background-color: white;
+  margin-bottom: 6rpx;
+}
+
+.index-device-alarm-box .device-alarm-total-box {
+  height: 100%;
+  position: relative;
+}
+
+.index-device-alarm-box .device-alarm-total-img {
+  height: 14rpx;
+  width: 14rpx;
+  margin-right: 21rpx;
+}
+
+.index-device-alarm-box .device-alarm-total-title {
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}
+
+.index-device-alarm-box .device-alarm-total-num {
+  color: #505363;
+  font-family: "DIN Alternate";
+  font-size: 48rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 48rpx;
+}
+
+.index-device-alarm-box .device-alarm-line {
+  position: absolute;
+  right: 0;
+  height: 40rpx;
+  width: 2rpx;
+  background-color: #EBECEF;
+}
+
+.index-device-alarm {
+  position: relative;
+}
+
+/* .index-device-alarm .device-alarm-num {} */
+
+.index-device-alarm .device-alarm-img {
+  height: 14rpx;
+  width: 14rpx;
+  margin-right: 21rpx;
+}
+
+.index-device-alarm .device-alarm-title {
+  color: #9EA5B2;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}
+
+.index-device-alarm .device-alarm-num {
+  color: #505363;
+  font-family: "DIN Alternate";
+  font-size: 40rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 40rpx;
+}
+
+.common-panel {
+  margin-bottom: 6rpx;
+}
+
+.common-panel .panel-header {
+  padding: 24rpx 40rpx;
+}
+
+.common-panel .panel-header-title {
+  position: relative;
+  color: #505363;
+  font-family: ".SF NS Display";
+  font-size: 28rpx;
+  letter-spacing: 0;
+  line-height: 28rpx;
+  margin-left: 12rpx;
+}
+
+.common-panel .panel-header-title::before {
+  content: " ";
+  height: 27rpx;
+  width: 4rpx;
+  background-color: #00B259;
+  position: absolute;
+  left: -12rpx;
+  top: 8rpx;
+}
+
+.common-panel .panel-header-tag {
+  margin-left: 10rpx;
+  vertical-align: middle;
+}
+
+.common-panel .panel-header-line {
+  height: 1rpx;
+  width: 670rpx;
+  background-color: #EBECEF;
+  margin-top: 24rpx;
+}
+
+.common-panel .common-panel-content {
+  padding: 10rpx 40rpx 25rpx 40rpx;
+}
+
+.index-produce-status .produce-status-content {
+  color: white;
+}
+
+.index-produce-status .produce-status-content .produce-item {
+  height: 180rpx;
+  width: 325rpx;
+  border-radius: 4rpx;
+  box-shadow: 0 2px 14px 0 rgba(63, 80, 114, 0.12);
+  padding: 0 20rpx;
+}
+
+.index-produce-status .produce-status-content .produce-item:nth-child(1) {
+  background: linear-gradient(315.99deg, #00B259 0%, #1ECF77 100%);
+  margin-right: 20rpx;
+}
+
+.index-produce-status .produce-status-content .produce-item:nth-child(2) {
+  background: linear-gradient(312.84deg, #3377FF 0%, #558EFF 100%);
+}
+
+.index-device-distribute .device-distribute-item {
+  margin-bottom: 24rpx;
+}
+
+.index-device-distribute .device-distribute-item:nth-child(1) .device-distribute-progress .van-progress__portion {
+  background: #FF3600 !important;
+}
+.index-device-distribute .device-distribute-item:nth-child(2) .device-distribute-progress .van-progress__portion {
+  background: #FF3600 !important;
+}
+.index-device-distribute .device-distribute-item:nth-child(3) .device-distribute-progress .van-progress__portion {
+  background: #6343B5 !important;
+}
+.index-device-distribute .device-distribute-item:nth-child(4) .device-distribute-progress .van-progress__portion {
+  background: #3377FF !important;
+}
+.index-device-distribute .device-distribute-item:nth-child(5) .device-distribute-progress .van-progress__portion {
+  background: #3377FF !important;
+}
+
+.index-device-distribute .device-distribute-item .device-distribute-progress {
+  margin-top: 12rpx;
+  height: 10rpx !important;
+}
+
+.index-device-distribute .device-distribute-item .device-distribute-address {
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}
+
+.index-device-distribute .device-distribute-item .device-distribute-num {
+  color: #505363;
+  font-family: "DIN Alternate";
+  font-size: 34rpx;
+  font-weight: bold;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}

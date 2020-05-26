@@ -1,0 +1,52 @@
+<view class="app-container">
+  <map id="Map" class="device-map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16"
+    markers="{{markers}}" polyline="{{polyline}}" show-location>
+  </map>
+  <view class="date-box flex">
+    <!-- <view class="flex-sub flex justify-center align-center">前一天</view>
+    <view class="flex-sub flex justify-center align-center">今天</view>
+    <view class="flex-sub flex justify-center align-center">后一天</view> -->
+    <van-cell class="flex-sub flex" title="选择日期" value="{{ date }}" bind:click="onDisplay" />
+  </view>
+  <!-- <view class="map-play-box">
+    <van-cell class="map-play-content flex justify-center align-center" label="描述信息" label="SKR287347468937" border="{{ false }}">
+      <view slot="title">
+        <text>挖-沪B.594FH</text>
+      </view>
+      <image class="map-play" src="/assets/device/button_start.png"></image>
+    </van-cell>
+  </view> -->
+  <!-- <view class="map-timebar-box">
+    <view class="map-timebar-content">
+      <view class="slide-box">
+        <van-slider custom-class="timebar-slider" value="{{ currentValue }}" use-button-slot>
+          <view class="timebar-current-value" slot="button">
+            09:56
+          </view>
+        </van-slider>
+        <view class="slide-value flex justify-between">
+          <text wx:for="{{ [0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24] }}">
+            {{ item }}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view> -->
+  <view class="map-playing-box">
+    <view class="map-playing-content flex justify-center align-center">
+      <view class="map-left-box flex-sub">
+        <view class="title">选择速率</view>
+        <van-tabs custom-class="custom-tabs" type="card">
+          <van-tab title="1倍"></van-tab>
+          <van-tab title="2倍"></van-tab>
+          <van-tab title="3倍"></van-tab>
+          <van-tab title="4倍"></van-tab>
+        </van-tabs>
+      </view>
+      <image wx:if="{{ !canPlay }}" class="map-playing" bindtap="playTrace" src="/assets/device/button_start.png"></image>
+      <image wx:else class="map-playing" bindtap="stopTrace" src="/assets/device/button_stop.png"></image>
+    </view>
+  </view>
+  <van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm"
+    default-date="{{ date }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" color="#00B259" />
+</view>

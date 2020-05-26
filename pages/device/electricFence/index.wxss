@@ -1,0 +1,69 @@
+/*
+* Licensed Materials - Property of ROOTCLOUD
+* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+*
+* The source code for this program is not published or
+* otherwise divested of its trade secrets
+*/
+
+/* .device-list {} */
+
+.device-list .device-item-content {
+  padding: 24rpx 20rpx;
+}
+
+.device-list .device-item .van-icon-arrow {
+  top: 24rpx;
+}
+
+.device-list .device-item .device-name-box {
+  margin-bottom: 18rpx;
+}
+
+.device-list .device-item .device-name {
+  color: #505363;
+  font-family: ".SF NS Display";
+  font-size: 28rpx;
+  letter-spacing: 0;
+  line-height: 33rpx;
+}
+
+.device-list .device-info-box .device-info-item {
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.device-list .device-info-box .device-info-item .device-num-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.device-list .device-icon-box .device-icon {
+  height: 48rpx;
+  width: 48rpx;
+  margin-right: 24rpx;
+  border-radius: 50%;
+  background-color: #00B259;
+}
+
+.device-list .device-info-box .device-info-item .device-info-text-box {
+  color: #9EA5B2;
+  font-family: "PingFang SC";
+  font-size: 16rpx;
+  letter-spacing: 0;
+  line-height: 22rpx;
+}
+
+.device-list .device-info-box .device-info-item .device-num-icon {
+  margin-right: 12rpx;
+}
+
+.add-electricFence {
+  margin: 64rpx 40rpx;
+  display: block;
+}

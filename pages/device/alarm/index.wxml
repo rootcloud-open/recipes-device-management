@@ -1,0 +1,53 @@
+<view class="app-container">
+	<van-cell class="device-intro-box flex" border="{{ false }}">
+		<view slot="title" class="device-intro-content flex">
+			<view class="device-icon-box">
+				<image class="device-icon" src="/assets/device/device-icon.png"></image>
+			</view>
+			<view class="flex-sub">
+				<view class="device-name-box">
+					<text class="device-name">{{ deviceInfo.deviceName }}</text>
+				</view>
+				<!-- <view class="device-info-box">
+					<text class="device-info-text-box"></text>
+				</view> -->
+			</view>
+		</view>
+	</van-cell>
+	<van-dropdown-menu>
+		<van-dropdown-item value="{{ alarmSeverityLevel }}" options="{{ alarmSeverityLevelOption }}" />
+		<van-dropdown-item value="{{ alarmCategory }}" options="{{ alarmCategoryOption }}" />
+		<van-dropdown-item value="{{ alarmClosed }}" options="{{ alarmClosedOption }}" />
+	</van-dropdown-menu>
+	<view class="device-list">
+		<van-cell wx:for="{{ deviceAlarmList }}" custom-class="device-item" border="{{ false }}"
+			data-item="{{item}}" bind:click="goDeviceAlarmDetail"	is-link>
+			<view slot="title" class="device-item-content flex">
+				<view class="device-icon-box">
+					<image wx:if="{{ item.severityName === '紧急' }}" class="device-icon" src="/assets/home_serious.png"></image>
+					<image wx:if="{{ item.severityName === '重要' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '警告' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '一般' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '不确定' }}" class="device-icon" src="/assets/home_normal.png"></image>
+          <view class="device-icon-line"></view>
+				</view>
+				<view class="flex-sub">
+					<view class="device-name-box">
+						<text class="device-name">{{ item.alarmTopicName }}</text>
+						<van-tag wx:if="{{ item.severityName === '紧急' }}" round type="danger" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '重要' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '警告' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '一般' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '不确定' }}" round class="device-status">{{ item.severityName }}</van-tag>
+					</view>
+					<view class="device-info-box">
+						<view class="device-info-item">
+							<text class="device-info-text-box">报警时间：{{ item.createdTime }}</text>
+						</view>
+					</view>
+          <view class="device-line"></view>
+				</view>
+			</view>
+		</van-cell>
+	</view>
+</view>

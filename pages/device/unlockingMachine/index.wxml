@@ -1,0 +1,58 @@
+<view class="app-container">
+	<van-tabs active="{{ active }}" bind:change="onChange">
+		<van-tab title="下发">
+			<view class="device-list">
+				<van-cell class="device-item" is-link>
+					<view slot="title" class="device-item-content flex">
+						<view class="device-icon-box">
+							<image class="device-icon" src="/assets/device/device-icon.png"></image>
+						</view>
+						<view class="flex-sub">
+							<view class="device-name-box">
+								<text class="device-name">Number</text>
+							</view>
+							<view class="device-info-box flex">
+								<view class="device-info-item flex-sub">
+									<text class="device-info-text-box">指令类型：解锁</text>
+								</view>
+								<view class="device-info-item flex-sub">
+									<text class="device-info-text-box">有效期：3天</text>
+								</view>
+								<view class="device-info-item flex-sub">
+									<text class="device-info-text-box">剩余次数：5次</text>
+								</view>
+							</view>
+						</view>
+					</view>
+				</van-cell>
+			</view>
+		</van-tab>
+		<van-tab title="申请">
+			<view class="device-list">
+				<van-cell class="device-item">
+					<view slot="title" class="device-item-content flex">
+						<view class="device-icon-box">
+							<image class="device-icon" src="/assets/device/device-icon.png"></image>
+						</view>
+						<view class="flex-sub">
+							<view class="device-name-box">
+								<text class="device-name">Number</text>
+							</view>
+							<view class="device-info-box flex">
+								<view class="device-info-item flex-sub">
+									<text class="device-info-text-box">指令类型：解锁</text>
+								</view>
+								<view class="device-info-item flex-twice">
+									<text class="device-info-text-box">申请时间：2020.0203</text>
+								</view>
+							</view>
+						</view>
+					</view>
+					<view class="cell-right-content apply-wait">待审批</view>
+					<view class="cell-right-content apply-pass">通过</view>
+					<view class="cell-right-content apply-reject">驳回</view>
+				</van-cell>
+			</view>
+		</van-tab>
+	</van-tabs>
+</view>

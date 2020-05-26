@@ -1,0 +1,33 @@
+<view class="app-container">
+	<van-cell class="device-intro-box flex">
+		<view slot="title" class="device-intro-content flex">
+			<view class="device-icon-box">
+				<image wx:if="{{ deviceAlarmDetail.severityName === '紧急' }}" class="device-icon" src="/assets/home_serious.png"></image>
+				<image wx:if="{{ deviceAlarmDetail.severityName === '重要' }}" class="device-icon" src="/assets/home_warn.png"></image>
+				<image wx:if="{{ deviceAlarmDetail.severityName === '警告' }}" class="device-icon" src="/assets/home_warn.png"></image>
+				<image wx:if="{{ deviceAlarmDetail.severityName === '一般' }}" class="device-icon" src="/assets/home_warn.png"></image>
+				<image wx:if="{{ deviceAlarmDetail.severityName === '不确定' }}" class="device-icon" src="/assets/home_normal.png"></image>
+			</view>
+			<view class="flex-sub">
+				<view class="device-name-box">
+					<text class="device-name">{{ deviceAlarmDetail.alarmTopicName || '无' }}</text>
+					<van-tag wx:if="{{ deviceAlarmDetail.severityName === '紧急' }}" round type="danger" class="device-status">{{ deviceAlarmDetail.severityName }}</van-tag>
+					<van-tag wx:if="{{ deviceAlarmDetail.severityName === '重要' }}" round type="warning" class="device-status">{{ deviceAlarmDetail.severityName }}</van-tag>
+					<van-tag wx:if="{{ deviceAlarmDetail.severityName === '警告' }}" round type="warning" class="device-status">{{ deviceAlarmDetail.severityName }}</van-tag>
+					<van-tag wx:if="{{ deviceAlarmDetail.severityName === '一般' }}" round type="warning" class="device-status">{{ deviceAlarmDetail.severityName }}</van-tag>
+					<van-tag wx:if="{{ deviceAlarmDetail.severityName === '不确定' }}" round class="device-status">{{ deviceAlarmDetail.severityName }}</van-tag>
+				</view>
+			</view>
+		</view>
+	</van-cell>
+  <van-cell-group title="基本信息">
+    <van-cell title="报警状态">
+			<van-button type="primary" size="small">{{ deviceAlarmDetail.ackedState || '无'  }}</van-button>
+		</van-cell>
+		<van-cell title="故障类型" value="{{ deviceAlarmDetail.subject || '无' }}" />
+		<van-cell title="报警设备" value="{{ deviceAlarmDetail.thingId || '无' }}" />
+		<van-cell title="报警规则" value="{{ deviceAlarmDetail.rule || '无' }}" />
+    <van-cell title="开始时间" value="{{ deviceAlarmDetail.activeTime || '无' }}" />
+		<van-cell title="结束时间" value="{{ deviceAlarmDetail.closedTime || '无' }}" />
+  </van-cell-group>
+</view>

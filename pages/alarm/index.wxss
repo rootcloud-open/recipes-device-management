@@ -1,0 +1,100 @@
+/*
+* Licensed Materials - Property of ROOTCLOUD
+* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+*
+* The source code for this program is not published or
+* otherwise divested of its trade secrets
+*/
+
+.device-list {
+  border-top: 1rpx solid #EBECEF;
+}
+
+.device-list .device-item {
+  overflow: visible;
+  padding-bottom: 10rpx;
+}
+
+.device-list .device-item-content {
+  position: relative;
+  padding: 4rpx 20rpx 24rpx;
+  overflow: visible;
+}
+
+.device-list .device-item-content:first-child {
+  padding-top: 38rpx;
+}
+
+.device-list .device-item .van-icon-arrow {
+  top: 44rpx;
+}
+
+.device-list .device-item .device-name-box {
+  margin-bottom: 28rpx;
+}
+
+.device-list .device-item .device-name {
+  color: #505363;
+  font-family: ".SF NS Display";
+  font-size: 28rpx;
+  letter-spacing: 0;
+  line-height: 33rpx;
+}
+
+.device-list .device-item .device-status {
+  position: relative;
+  top: -3rpx;
+  margin-left: 24rpx;
+}
+
+.device-list .device-info-box .device-info-item {
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+  margin-bottom: 16rpx;
+}
+
+.device-list .device-info-box .device-info-item .device-num-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.device-list .device-icon-box {
+  position: relative;
+}
+
+.device-list .device-icon-box .device-icon {
+  height: 48rpx;
+  width: 48rpx;
+  margin-right: 24rpx;
+  border-radius: 50%;
+}
+
+.device-list .device-icon-box .device-icon-line {
+  position: absolute;
+  left: 25rpx;
+  top: 50rpx;
+  height: 121%;
+  width: 1rpx;
+  background-color: #EBECEF;
+  z-index: 5;
+}
+
+.device-list .device-info-box .device-info-item .device-info-text-box {
+  color: #505363;
+  font-family: "PingFang SC";
+  font-size: 24rpx;
+  letter-spacing: 0;
+  line-height: 24rpx;
+}
+
+.device-list .device-item .device-line {
+  position: absolute;
+  height: 1rpx;
+  width: 91.5%;
+  border-top: 1rpx solid #EBECEF;
+  bottom: -5rpx;
+}

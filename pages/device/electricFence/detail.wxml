@@ -1,0 +1,38 @@
+<view class="app-container">
+	<map class="device-map" circles="{{ circles }}" markers="{{markers}}" longitude="{{ mapOption.longitude }}" latitude="{{ mapOption.latitude }}" scale="16"></map>
+	<view class="electricFence-box-wrap">
+		<view class="electricFence-box">
+			<view class="electricFence-box-line"></view>
+			<van-cell-group>
+				<view class="custom-nav flex">
+					<view class="flex-sub text-left nav-left">取消</view>
+					<view class="flex-sub flex justify-center align-center">添加电子围栏</view>
+					<view class="flex-sub text-right">
+						<text class="custom-primary">确定</text>
+					</view>
+				</view>
+				<van-cell title="围栏名称" value="电子围栏3455949393939" />
+				<van-cell title="围栏类型" value="画地为牢" is-link />
+        <van-cell title="围栏距离" border="{{ false }}"></van-cell>
+        <view class="slide-box">
+          <slider min="{{ slideOption.min }}" max="{{ slideOption.max }}" />
+          <view class="slide-value flex justify-between">
+            <text>1公里</text>
+            <text>500公里</text>
+          </view>
+        </view>
+				<van-cell title="开始时间" value="2020.03.23" is-link />
+				<van-cell title="结束时间" value="2020.03.23" is-link />
+				<van-cell title="围栏启停">
+					<van-switch checked="{{ checked }}" active-color="#07c160" />
+				</van-cell>
+        <van-cell title="关联设备" is-link>
+					<van-tag custom-class="custom-tag">TEST1</van-tag>
+					<van-tag custom-class="custom-tag last-tag">TEST2</van-tag>
+				</van-cell>
+        <van-cell title="订阅方式" value="短信订阅" is-link></van-cell>
+        <van-cell title="订阅人" value="郑天天" is-link></van-cell>
+			</van-cell-group>
+		</view>
+	</view>
+</view>

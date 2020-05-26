@@ -1,0 +1,38 @@
+<view class="app-container">
+	<view class="device-list">
+		<van-cell wx:for="{{ deviceAlarmList }}" data-item="{{item}}" custom-class="device-item" bind:click="goDeviceAlarmDetail" border="{{ false }}" is-link>
+			<view slot="title" class="device-item-content flex">
+				<view class="device-icon-box">
+					<image wx:if="{{ item.severityName === '紧急' }}" class="device-icon" src="/assets/home_serious.png"></image>
+					<image wx:if="{{ item.severityName === '重要' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '警告' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '一般' }}" class="device-icon" src="/assets/home_warn.png"></image>
+					<image wx:if="{{ item.severityName === '不确定' }}" class="device-icon" src="/assets/home_normal.png"></image>
+          <view class="device-icon-line"></view>
+				</view>
+				<view class="flex-sub">
+					<view class="device-name-box">
+						<text class="device-name">{{ item.alarmTopicName }}</text>
+						<van-tag wx:if="{{ item.severityName === '紧急' }}" round type="danger" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '重要' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '警告' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '一般' }}" round type="warning" class="device-status">{{ item.severityName }}</van-tag>
+						<van-tag wx:if="{{ item.severityName === '不确定' }}" round class="device-status">{{ item.severityName }}</van-tag>
+					</view>
+					<view class="device-info-box">
+						<view class="device-info-item">
+							<text class="device-info-text-box">故障类型：{{ item.subject }}</text>
+						</view>
+						<view class="device-info-item">
+							<text class="device-info-text-box">报警设备：{{ item.thingId }}</text>
+						</view>
+						<view class="device-info-item">
+							<text class="device-info-text-box">报警时间：{{ item.createdTime }}</text>
+						</view>
+					</view>
+          <view class="device-line"></view>
+				</view>
+			</view>
+		</van-cell>
+	</view>
+</view>

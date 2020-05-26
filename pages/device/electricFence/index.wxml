@@ -1,0 +1,27 @@
+<view class="app-container">
+	<view class="device-list">
+		<van-cell class="device-item" bind:click="goElectricFenceDetail" is-link>
+			<view slot="title" class="device-item-content flex">
+				<view class="device-icon-box">
+					<image class="device-icon" src="/assets/device/device-icon.png"></image>
+				</view>
+				<view class="flex-sub">
+					<view class="device-name-box">
+						<text class="device-name">电子围栏3455949393939</text>
+					</view>
+					<view class="device-info-box">
+						<view class="device-info-item">
+							<text class="device-info-text-box">北京市海淀区中关村软件园11号</text>
+						</view>
+            <view class="device-info-item">
+              <van-tag round>画地为牢4公里</van-tag>
+            </view>
+					</view>
+				</view>
+			</view>
+		</van-cell>
+	</view>
+	<van-button class="add-electricFence" type="primary" icon="plus" bind:click="goElectricFenceDetail" block>
+		添加电子围栏
+	</van-button>
+</view>

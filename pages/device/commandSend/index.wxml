@@ -1,0 +1,22 @@
+<view class="app-container">
+	<view class="device-list">
+		<van-cell wx:for="{{ deviceInstructionList }}" class="device-item"
+			data-item="{{item}}" bind:click="goDeviceCommandSendDetail" is-link>
+			<view slot="title" class="device-item-content flex">
+				<view class="device-icon-box">
+					<image class="device-icon" src="/assets/device/device-icon.png"></image>
+				</view>
+				<view class="flex-sub">
+					<view class="device-name-box">
+						<text class="device-name">{{ item.name || '无' }}</text>
+					</view>
+					<view class="device-info-box">
+						<view class="device-info-item">
+							<text class="device-info-text-box">实时值：{{ item.definition[item.type][0].value || '无' }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</van-cell>
+	</view>
+</view>

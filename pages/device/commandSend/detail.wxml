@@ -1,0 +1,41 @@
+<view class="app-container">
+	<van-cell class="device-intro-box flex">
+		<view slot="title" class="device-intro-content flex">
+			<view class="device-icon-box">
+				<image class="device-icon" src="/assets/device/device-icon.png"></image>
+			</view>
+			<view class="flex-sub">
+				<view class="device-name-box">
+					<text class="device-name">{{ deviceInfo.name || '无' }}</text>
+				</view>
+				<view class="device-info-box">
+					<text class="device-info-text-box">实时值：{{ deviceInfo.definition[deviceInfo.type][0].value || '无' }}</text>
+				</view>
+			</view>
+		</view>
+	</van-cell>
+  <van-cell-group title="基本信息">
+    <van-cell title="下发状态">
+			<van-button type="primary" size="small">{{ deviceInfo.status }}</van-button>
+		</van-cell>
+    <van-cell title="实时值" value="{{ deviceInfo.definition[deviceInfo.type][0].value || '无' }}" />
+    <van-cell title="单位" value="{{ deviceInfo.instructionId }}" />
+    <van-cell title="参数下发时间戳" value="{{ deviceInfo.created }}" />
+    <van-cell title="终端反馈时间戳" value="{{ deviceInfo.updated }}" />
+  </van-cell-group>
+  <!-- <van-cell-group title="下发指令设置">
+    <van-cell title="下发指令设置" is-link>
+			<view class="custom-primary">{{ deviceInfo.name || '无' }}</view>
+		</van-cell>
+		<van-field
+			model:value="{{ value }}"
+			required
+			clearable
+			label="下发参数"
+			placeholder="请输入下发参数"
+			input-align="right"
+		/>
+		<van-cell title="离线指令有效期" is-link />
+  </van-cell-group>
+	<van-button class="send-command" type="primary" block>下发指令</van-button> -->
+</view>

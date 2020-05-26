@@ -1,0 +1,11 @@
+<view class="index-page app-container">
+  <van-button wx:if="{{authenticated === false}}" type="primary" bind:click="gotoLogin" block>用根云账号登录</van-button>
+  <view wx:else>
+    <van-cell-group>
+      <van-cell title="用户名" value="{{ userInfo.displayName || '暂无' }}" />
+      <van-cell title="手机" value="{{ userInfo.cellphone || '暂无' }}" />
+      <van-cell title="公司" value="{{ userInfo.activeCompany.name || '暂无' }}" />
+    </van-cell-group>
+    <van-button class="logoutBtn" type="primary" bind:click="logout" block>退出登录</van-button>
+  </view>
+</view>

@@ -1,0 +1,183 @@
+@import "/miniprogram_npm/@vant/weapp/common/index.wxss";
+
+.app-container {
+  position: relative;
+  min-height: 100vh;
+  background-color: #F8F8FA;
+}
+
+.van-tabs__line {
+  background-color: #00B259 !important;
+}
+
+.van-tab--active {
+  color: #00B259 !important;
+}
+
+.custom-primary {
+  color: #00B259;
+}
+
+.custom-nav {
+  padding: 25rpx 30rpx;
+  font-size: 28rpx;
+  font-family: "PingFang SC";
+  border-bottom: 1px solid #ebedf0;
+}
+
+.custom-nav .nav-left {
+  color: #9EA5B2;
+}
+
+.custom-tag {
+  padding: 15rpx !important;
+  font-size: 24rpx !important;
+  margin-right: 20rpx;
+}
+
+.custom-tag.last-tag {
+  margin-right: 0;
+}
+
+.custom-tabs .van-tabs__wrap, .custom-tabs .van-tabs__scroll--card {
+  margin: 0 !important;
+}
+
+.custom-tabs .van-tabs__nav--card {
+  border: none;
+}
+
+.custom-tabs .van-tabs__nav--card .van-tab {
+  color: white;
+  background-color: #D7F0E3;
+  border: 1px solid #D7F0E3 !important;
+  margin-right: 20rpx;
+  padding: 0 25rpx;
+}
+
+.custom-tabs .van-tabs__nav--card .van-tab:last-child {
+  margin-right: 0;
+}
+
+.custom-tabs .van-tabs__nav--card .van-tab.van-tab--active {
+  color: white !important;
+  background-color: #00B259;
+  border: 1px solid #00B259 !important;
+}
+
+.custom-cell .van-cell__value {
+  overflow: visible;
+}
+
+.custom-panel {
+  margin-bottom: 15px;
+}
+
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.flex {
+  display: flex;
+}
+
+.basis-xs {
+  flex-basis: 20%;
+}
+
+.basis-sm {
+  flex-basis: 40%;
+}
+
+.basis-df {
+  flex-basis: 50%;
+}
+
+.basis-lg {
+  flex-basis: 60%;
+}
+
+.basis-xl {
+  flex-basis: 80%;
+}
+
+.flex-sub {
+  flex: 1;
+}
+
+.flex-twice {
+  flex: 2;
+}
+
+.flex-treble {
+  flex: 3;
+}
+
+.flex-direction {
+  flex-direction: column;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.align-start {
+  align-items: flex-start;
+}
+
+.align-end {
+  align-items: flex-end;
+}
+
+.align-center {
+  align-items: center;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.self-start {
+  align-self: flex-start;
+}
+
+.self-center {
+  align-self: flex-center;
+}
+
+.self-end {
+  align-self: flex-end;
+}
+
+.self-stretch {
+  align-self: stretch;
+}
+
+.align-stretch {
+  align-items: stretch;
+}
+
+.justify-start {
+  justify-content: flex-start;
+}
+
+.justify-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-around {
+  justify-content: space-around;
+}

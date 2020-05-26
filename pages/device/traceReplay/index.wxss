@@ -1,0 +1,99 @@
+/*
+* Licensed Materials - Property of ROOTCLOUD
+* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+*
+* The source code for this program is not published or
+* otherwise divested of its trade secrets
+*/
+
+.device-map {
+  position: absolute;
+  width: 100%;
+  height: 100vh;
+}
+
+.date-box {
+  position: absolute;
+  width: 100%;
+  padding: 24rpx 0;
+  background-color: #F9F9FB;
+}
+
+.map-play-box {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: 48rpx;
+  padding: 0 20rpx;
+}
+
+.map-play-box .map-play {
+  position: relative;
+  top: 8rpx;
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.map-playing-box {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: 48rpx;
+  padding: 0 20rpx;
+}
+
+.map-playing-content {
+  padding: 34rpx 40rpx;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 12px 0 rgba(33,37,46,0.12);
+}
+
+.map-playing-box .map-left-box {
+  margin-right: 30rpx;
+}
+
+.map-playing-box .map-left-box .title {
+  margin-bottom: 10rpx;
+}
+
+.map-playing-box .map-playing {
+  width: 98rpx;
+  height: 98rpx;
+}
+
+.map-timebar-box {
+  position: absolute;
+  width: 100%;
+  box-sizing: border-box;
+  bottom: 255rpx;
+  padding: 0 20rpx;
+}
+
+.map-timebar-content {
+  padding: 34rpx 20rpx;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 12px 0 rgba(33,37,46,0.12);
+}
+
+.map-timebar-content .slide-box {
+  padding-top: 10rpx;
+}
+
+.map-timebar-content .slide-box .slide-value {
+  margin-top: 20rpx;
+  color: #9EA5B2;
+  font-family: "PingFang SC";
+  font-size: 20rpx;
+  letter-spacing: 0;
+  line-height: 20rpx;
+  text-align: center;
+}
+
+.map-timebar-content .timebar-slider .timebar-current-value {
+  color: #fff;
+  font-size: 20rpx;
+  padding: 0 10rpx;
+  text-align: center;
+  background-color: #505363;
+}

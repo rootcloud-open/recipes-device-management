@@ -1,0 +1,36 @@
+<view class="app-container">
+	<map wx:if="{{showType === 'map'}}" class="device-map" longitude="109.072266" latitude="33.063924" scale="4" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange"></map>
+	<view wx:if="{{showType === 'list'}}" class="device-list">
+		<van-cell wx:for="{{ deviceList }}" class="device-item"
+			data-item="{{item}}" bind:click="goDeviceDetail" is-link>
+			<view slot="title" class="device-item-content flex">
+				<view class="device-icon-box">
+					<image class="device-icon" src="/assets/device/device-icon.png"></image>
+				</view>
+				<view class="flex-sub">
+					<view class="device-name-box">
+						<text class="device-name">{{ item.deviceName }}</text>
+						<van-tag wx:if="{{item.online}}" round type="success" class="device-status">在线</van-tag>
+						<van-tag wx:else round class="device-status">离线</van-tag>
+					</view>
+					<view class="device-info-box">
+						<view class="device-info-item">
+							<image class="device-num-icon" src="/assets/home_online.png"></image>
+							<text class="device-info-text-box">物标识：{{ item.assetId || '无' }}</text>
+						</view>
+						<view class="device-info-item">
+							<image class="device-num-icon" src="/assets/home_online.png"></image>
+							<text class="device-info-text-box">设备类型：{{item.model.category.length ? item.model.category : '无' }}</text>
+						</view>
+						<view class="device-info-item">
+							<image class="device-num-icon" src="/assets/home_online.png"></image>
+							<text class="device-info-text-box">设备区域：{{ item.country || '无' }}{{ item.state }}{{ item.city }}{{ item.district }}</text>
+						</view>
+					</view>
+				</view>
+			</view>
+		</van-cell>
+	</view>
+	<image wx:if="{{showType === 'list'}}" bindtap="toggleShowType" class="displayType-toggle" src="/assets/device/button-map.png" />
+	<image wx:if="{{showType === 'map'}}"  bindtap="toggleShowType" class="displayType-toggle" src="/assets/device/button-list.png" />
+</view>

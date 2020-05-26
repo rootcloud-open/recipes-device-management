@@ -1,0 +1,55 @@
+/*
+* Licensed Materials - Property of ROOTCLOUD
+* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+*
+* The source code for this program is not published or
+* otherwise divested of its trade secrets
+*/
+
+.device-map {
+  position: absolute;
+  width: 100%;
+  height: 35vh;
+}
+
+.electricFence-box-wrap {
+  padding-top: 35vh;
+}
+
+.electricFence-box {
+  width: calc(100% - 40rpx);
+  margin: 0 20rpx 5vh;
+  padding-top: 24rpx;
+  background-color: white;
+  box-shadow: 0 2px 12px 0 rgba(33,37,46,0.12);
+  z-index: 100;
+}
+
+.electricFence-box-line {
+  height: 4rpx;
+  width: 80rpx;
+  background-color: #505363;
+  margin: 0 auto 24rpx;
+}
+
+.electricFence-box .device-icon {
+  width: 24rpx;
+  height: 24rpx;
+  margin-right: 12rpx;
+}
+
+.electricFence-box .slide-box {
+  padding: 0 10rpx;
+}
+
+.electricFence-box .slide-box .slide-value {
+  margin: 50rpx 0 20rpx;
+  padding: 0 20rpx;
+  color: #9EA5B2;
+  font-family: "PingFang SC";
+  font-size: 20rpx;
+  letter-spacing: 0;
+  line-height: 20rpx;
+}
+

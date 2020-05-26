@@ -1,0 +1,74 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/index/login",
+    "pages/device/index",
+    "pages/device/detail",
+    "pages/device/traceReplay/index",
+    "pages/device/electricFence/index",
+    "pages/device/electricFence/detail",
+    "pages/device/commandSend/detail",
+    "pages/device/unlockingMachine/index",
+    "pages/device/commandSend/index",
+    "pages/device/alarm/index",
+    "pages/my/index",
+    "pages/alarm/index",
+    "pages/alarm/detail"
+  ],
+  "tabBar": {
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "assets/tab1-2.png",
+        "selectedIconPath": "assets/tab1-1.png"
+      },
+      {
+        "pagePath": "pages/device/index",
+        "text": "设备",
+        "iconPath": "assets/tab2-1.png",
+        "selectedIconPath": "assets/tab2-2.png"
+      },
+      {
+        "pagePath": "pages/alarm/index",
+        "text": "报警",
+        "iconPath": "assets/tab3-1.png",
+        "selectedIconPath": "assets/tab3-2.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的",
+        "iconPath": "assets/tab4-1.png",
+        "selectedIconPath": "assets/tab4-2.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "首页",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json",
+  "usingComponents": {
+    "van-button": "@vant/weapp/button/index",
+    "van-field": "@vant/weapp/field/index",
+    "van-row": "@vant/weapp/row/index",
+    "van-col": "@vant/weapp/col/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "van-panel": "@vant/weapp/panel/index",
+    "van-progress": "@vant/weapp/progress/index",
+    "van-tag": "@vant/weapp/tag/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-dropdown-menu": "@vant/weapp/dropdown-menu/index",
+    "van-dropdown-item": "@vant/weapp/dropdown-item/index",
+    "van-tab": "@vant/weapp/tab/index",
+    "van-tabs": "@vant/weapp/tabs/index",
+    "van-switch": "@vant/weapp/switch/index",
+    "van-slider": "@vant/weapp/slider/index",
+    "van-toast": "@vant/weapp/toast/index",
+    "van-calendar": "@vant/weapp/calendar/index"
+  }
+}
