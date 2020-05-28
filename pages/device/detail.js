@@ -18,7 +18,7 @@ Page({
   data: {
     userInfo: {},
     deviceDetail: {},
-    deviceRealData: {}
+    deviceRealtimeData: {}
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -31,7 +31,7 @@ Page({
     const deviceInfoObj = JSON.parse(deviceInfo);
     this.getDeviceDetail(deviceInfoObj.thingId, deviceInfoObj.modelId, deviceInfoObj);
     this.getDeviceModel(deviceInfoObj.modelId);
-    this.getDeviceRealData(deviceInfoObj.thingId, deviceInfoObj.modelId);
+    this.getDeviceRealtimeData(deviceInfoObj.thingId, deviceInfoObj.modelId);
     const token = rootcloud.token;
     if(token) {
       const userInfo = jwtDecode(token);
@@ -80,7 +80,7 @@ Page({
     })
   },
   // 获取设备的实时工况数据
-  getDeviceRealData(thingId, modelId) {
+  getDeviceRealtimeData(thingId, modelId) {
     wx.request({
       url: `${config.API_GATEWAY}/realtime-manage/v1/realtime/models/${modelId}/things/${thingId}`,
       method: 'GET',
@@ -96,7 +96,7 @@ Page({
           })
         }
         this.setData({
-          deviceRealData: payload && payload.length ? payload[0].data : {}
+          deviceRealtimeData: payload && payload.length ? payload[0].data : {}
         })
       }
     });

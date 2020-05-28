@@ -63,7 +63,7 @@
 		<van-cell title="用户名称" value="{{ userInfo.displayName }}" />
   </van-cell-group>
   <van-cell-group title="实时工况">
-		<van-panel wx:for="{{deviceRealData}}" wx:for-index="key" wx:for-item="value" custom-class="custom-panel" use-footer-slot>
+		<van-panel wx:for="{{deviceRealtimeData}}" wx:for-index="key" wx:for-item="value" custom-class="custom-panel" use-footer-slot>
 			<view class="flex justify-between" style="font-size: 14px;padding: 10px 15px;border-bottom: 1px solid #ebedf0;" slot="header">
 				<view>属性名</view>
 				<view style="font-size: 12px;">属性ID：{{ key }}</view>

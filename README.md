@@ -1,4 +1,6 @@
-# 根云设备管理应用示范小程序
+# 根云睿册 - 移动设备管理
+
+[![License](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
 ## 准备工作
 1. 在小程序项目目录中执行命令安装 npm 包：
