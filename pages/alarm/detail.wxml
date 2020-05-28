@@ -22,10 +22,10 @@
 	</van-cell>
   <van-cell-group title="基本信息">
     <van-cell title="报警状态">
-			<van-button type="primary" size="small">{{ deviceAlarmDetail.ackedState || '无'  }}</van-button>
+			<van-button type="primary" size="small">{{ alarmAckedStateMap[deviceAlarmDetail.ackedState] || '无'  }}</van-button>
 		</van-cell>
 		<van-cell title="故障类型" value="{{ deviceAlarmDetail.subject || '无' }}" />
-		<van-cell title="报警设备" value="{{ deviceAlarmDetail.thingId || '无' }}" />
+		<van-cell title="报警设备" value="{{ deviceThingMap[deviceAlarmDetail.thingId].name || '暂无' }}" />
 		<van-cell title="报警规则" value="{{ deviceAlarmDetail.rule || '无' }}" />
     <van-cell title="开始时间" value="{{ deviceAlarmDetail.activeTime || '无' }}" />
 		<van-cell title="结束时间" value="{{ deviceAlarmDetail.closedTime || '无' }}" />

@@ -18,7 +18,18 @@ Page({
   data: {
     userInfo: {},
     deviceDetail: {},
-    deviceRealData: {}
+    deviceRealData: {},
+    devicePropMap: {
+      '__location__': '当前位置',
+      '__online__': '在线状态',
+      '__workingStatus__': '设备工作状态',
+      'WaterTemperature': '水温',
+      'RotateSpeed': '转速',
+      'OilPressure': '油压',
+      'OilTemperature': '油温',
+      'Speed': '速度',
+      'Voltage': '电压'
+    }
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -52,7 +63,7 @@ Page({
       success: (res) => {
         const payload = res.data.payload;
         if(payload && Object.keys(payload).length) {
-          payload.created = dayjs(payload.created).format('YYYY/MM/DD HH:mm:ss');
+          payload.created = dayjs(payload.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
         }
         this.setData({
           deviceDetail: Object.assign(payload, deviceInfo)
@@ -63,7 +74,7 @@ Page({
   // 获取设备模型信息
   getDeviceModel(modelId) {
     wx.request({
-      url: `${config.API_GATEWAY}/thing-model/v1/thing/thing-classes/${modelId}?thingType=device`,
+      url: `${config.API_GATEWAY}/thing-model/v1/thing/thing-classes/${modelId}?thingType=device&_resolve=true`,
       method: 'GET',
       header: {
         Authorization: 'Bearer ' + rootcloud.token
@@ -71,7 +82,7 @@ Page({
       success: (res) => {
         const payload = res.data.payload;
         if(Object.keys(payload).length) {
-          payload.created = dayjs(payload.created).format('YYYY/MM/DD HH:mm:ss');
+          payload.created = dayjs(payload.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
         }
         this.setData({
           deviceDetail: Object.assign(this.data.deviceDetail, payload)
@@ -90,10 +101,19 @@ Page({
       success: (res) => {
         const payload = res.data.payload;
         if(payload && payload.length) {
-          const data = payload[0].data;
+          let data = payload[0].data;
+          let locationData = {};
           Object.keys(data).forEach(key => {
-            data[key].timeCloud = dayjs(data[key].timeCloud).format('YYYY/MM/DD HH:mm:ss');
+            data[key].timeCloud = dayjs(data[key].timeCloud.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+            if(key.indexOf('__location__') !== -1) {
+              const cacheKey = key.split('__location__.')[1];
+              locationData[cacheKey] = JSON.parse(JSON.stringify(data[key]));
+              delete data[key];
+            }
           })
+          // data = Object.assign(data, {
+          //   '__location__': locationData
+          // });
         }
         this.setData({
           deviceRealData: payload && payload.length ? payload[0].data : {}

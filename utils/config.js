@@ -8,14 +8,10 @@
 */
 
 export const config = {
-  // 内部测试环境
-  // API_GATEWAY: 'https://openapi-qa.rootcloudapp.com',
-  // CLIENT_ID: '5eb11f806f8fcb00597dd2ed',
-  // CLIENT_SECRET: '6dfdb333fe2a1d152bd57c872d80781c',
   // 生产环境
   // API_GATEWAY: 'https://openapi.rootcloudapp.com',
   // CLIENT_ID: 'clientid',
-  // CLIENT_SECRET: 'clientsecret'，
+  // CLIENT_SECRET: 'clientsecret'
   // 预发环境
   API_GATEWAY: 'https://openapi-pre.rootcloudapp.com',
   CLIENT_ID: '5ecc6fc18e926800911b2c57',

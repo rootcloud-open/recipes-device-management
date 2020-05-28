@@ -10,6 +10,7 @@
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
 import { config } from "../../utils/config";
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
@@ -17,7 +18,8 @@ Page({
     deviceOnlineCount: 0,
     deviceAlarmCount: 0,
     deviceCountByArea: [],
-    deviceCountByAlarm: []
+    deviceCountByAlarm: [],
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -30,6 +32,14 @@ Page({
   },
   onShow() {
     if (rootcloud.authenticated) {
+      this.setData({
+        loading: true
+      })
+      Toast.loading({
+        duration: 5000,
+        forbidClick: true,
+        message: '加载中...',
+      });
       this.countDevices();
       this.countOnlineDevices();
       this.countDevicesByArea();
@@ -109,6 +119,10 @@ Page({
             deviceAlarmCount: alarmCount
           })
         }
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
       }
     });
   },

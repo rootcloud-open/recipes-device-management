@@ -1,120 +1,123 @@
 <view class="index-page app-container">
   <van-button wx:if="{{authenticated === false}}" type="primary" bind:click="gotoLogin" block>用根云账号登录</van-button>
   <view wx:else>
-    <view class="index-device-total flex flex-direction align-center justify-center">
-      <view class="device-total-title">设备总数</view>
-      <text class="device-total-num">{{ deviceCount }}</text>
+    <view wx:if="{{ !loading }}">
+      <view class="index-device-total flex flex-direction align-center justify-center">
+        <view class="device-total-title">设备总数</view>
+        <text class="device-total-num">{{ deviceCount }}</text>
+      </view>
+      <van-grid custom-class="index-device-status" column-num="3" border="{{ false }}">
+        <van-grid-item use-slot>
+          <view class="flex flex-direction align-center justify-center">
+            <view>
+              <image class="device-status-img" src="/assets/home_online.png" />
+              <text class="device-status-title">在线</text>
+            </view>
+            <text class="device-status-num">{{ deviceOnlineCount }}</text>
+            <view class="device-status-line"></view>
+          </view>
+        </van-grid-item>
+        <van-grid-item use-slot>
+          <view class="flex flex-direction align-center justify-center">
+            <view>
+              <image class="device-status-img" src="/assets/home_oning.png" />
+              <text class="device-status-title">作业</text>
+            </view>
+            <text class="device-status-num">0</text>
+            <view class="device-status-line"></view>
+          </view>
+        </van-grid-item>
+        <van-grid-item use-slot>
+          <view class="flex flex-direction align-center justify-center">
+            <view>
+              <image class="device-status-img" src="/assets/home_error.png" />
+              <text class="device-status-title">故障</text>
+            </view>
+            <text class="device-status-num">0</text>
+            <view class="device-status-line"></view>
+          </view>
+        </van-grid-item>
+      </van-grid>
+      <view class="index-device-alarm-box flex">
+        <view class="flex-sub">
+          <view class="device-alarm-total-box flex flex-direction align-center justify-center">
+            <view>
+              <image class="device-alarm-total-img" src="/assets/home_online.png" />
+              <text class="device-alarm-total-title">报警总数</text>
+            </view>
+            <text class="device-alarm-total-num">{{ deviceAlarmCount }}</text>
+            <view class="device-alarm-line"></view>
+          </view>
+        </view>
+        <view class="flex-twice">
+          <van-grid custom-class="index-device-alarm" column-num="3" border="{{ false }}">
+            <van-grid-item use-slot>
+              <view class="flex flex-direction align-center justify-center">
+                <view>
+                  <image class="device-alarm-img" src="/assets/home_online.png" />
+                  <text class="device-alarm-title">严重</text>
+                </view>
+                <text class="device-alarm-num">{{ deviceCountByAlarm[0].totalNum }}</text>
+                <view class="device-alarm-line"></view>
+              </view>
+            </van-grid-item>
+            <van-grid-item use-slot>
+              <view class="flex flex-direction align-center justify-center">
+                <view>
+                  <image class="device-alarm-img" src="/assets/home_oning.png" />
+                  <text class="device-alarm-title">警告</text>
+                </view>
+                <text class="device-alarm-num">{{deviceCountByAlarm[1].totalNum}}</text>
+                <view class="device-alarm-line"></view>
+              </view>
+            </van-grid-item>
+            <van-grid-item use-slot>
+              <view class="flex flex-direction align-center justify-center">
+                <view>
+                  <image class="device-alarm-img" src="/assets/home_error.png" />
+                  <text class="device-alarm-title">一般</text>
+                </view>
+                <text class="device-alarm-num">{{deviceCountByAlarm[2].totalNum}}</text>
+              </view>
+            </van-grid-item>
+          </van-grid>
+        </view>
+      </view>
+      <van-panel custom-class="index-produce-status common-panel">
+        <view class="panel-header" slot="header">
+          <text class="panel-header-title">生产情况(模拟数据)</text>
+          <view class="panel-header-line"></view>
+        </view>
+        <view class="produce-status-content common-panel-content flex">
+          <view class="produce-item flex-sub flex flex-direction justify-center">
+            <view class="produce-title">今日开工率</view>
+            <text class="produce-percent">50%</text>
+            <van-progress percentage="50" show-pivot="{{ false }}" track-color="rgba(255,255,255,0.19)" color="rgba(255,255,255,0.81)" />
+          </view>
+          <view class="produce-item flex-sub flex flex-direction justify-center">
+            <view class="produce-title">今日作业率</view>
+            <text class="produce-percent">50%</text>
+            <van-progress percentage="50" show-pivot="{{ false }}" track-color="rgba(255,255,255,0.19)" color="rgba(255,255,255,0.81)" />
+          </view>
+        </view>
+      </van-panel>
+      <van-panel custom-class="index-device-distribute common-panel">
+        <view class="panel-header" slot="header">
+          <text class="panel-header-title">设备分布</text>
+          <van-tag type="warning" custom-class="panel-header-tag">TOP5</van-tag>
+          <view class="panel-header-line"></view>
+        </view>
+        <view class="device-distribute-content common-panel-content">
+          <view wx:for="{{ deviceCountByArea }}" class="device-distribute-item">
+            <view class="device-distribute-text-box flex justify-between">
+              <view class="device-distribute-address">{{ item._id.state !== null ? item._id.state : '未明确地区' }}</view>
+              <view class="device-distribute-num">{{ item.count }}</view>
+            </view>
+            <van-progress custom-class="device-distribute-progress" percentage="{{ (item.count / deviceCount) * 100 }}" show-pivot="{{ false }}" />
+          </view>
+        </view>
+      </van-panel>
     </view>
-    <van-grid custom-class="index-device-status" column-num="3" border="{{ false }}">
-      <van-grid-item use-slot>
-        <view class="flex flex-direction align-center justify-center">
-          <view>
-            <image class="device-status-img" src="/assets/home_online.png" />
-            <text class="device-status-title">在线</text>
-          </view>
-          <text class="device-status-num">{{ deviceOnlineCount }}</text>
-          <view class="device-status-line"></view>
-        </view>
-      </van-grid-item>
-      <van-grid-item use-slot>
-        <view class="flex flex-direction align-center justify-center">
-          <view>
-            <image class="device-status-img" src="/assets/home_oning.png" />
-            <text class="device-status-title">作业</text>
-          </view>
-          <text class="device-status-num">0</text>
-          <view class="device-status-line"></view>
-        </view>
-      </van-grid-item>
-      <van-grid-item use-slot>
-        <view class="flex flex-direction align-center justify-center">
-          <view>
-            <image class="device-status-img" src="/assets/home_error.png" />
-            <text class="device-status-title">故障</text>
-          </view>
-          <text class="device-status-num">0</text>
-          <view class="device-status-line"></view>
-        </view>
-      </van-grid-item>
-    </van-grid>
-    <view class="index-device-alarm-box flex">
-      <view class="flex-sub">
-        <view class="device-alarm-total-box flex flex-direction align-center justify-center">
-          <view>
-            <image class="device-alarm-total-img" src="/assets/home_online.png" />
-            <text class="device-alarm-total-title">报警总数</text>
-          </view>
-          <text class="device-alarm-total-num">{{ deviceAlarmCount }}</text>
-          <view class="device-alarm-line"></view>
-        </view>
-      </view>
-      <view class="flex-twice">
-        <van-grid custom-class="index-device-alarm" column-num="3" border="{{ false }}">
-          <van-grid-item use-slot>
-            <view class="flex flex-direction align-center justify-center">
-              <view>
-                <image class="device-alarm-img" src="/assets/home_online.png" />
-                <text class="device-alarm-title">严重</text>
-              </view>
-              <text class="device-alarm-num">{{ deviceCountByAlarm[0].totalNum }}</text>
-              <view class="device-alarm-line"></view>
-            </view>
-          </van-grid-item>
-          <van-grid-item use-slot>
-            <view class="flex flex-direction align-center justify-center">
-              <view>
-                <image class="device-alarm-img" src="/assets/home_oning.png" />
-                <text class="device-alarm-title">警告</text>
-              </view>
-              <text class="device-alarm-num">{{deviceCountByAlarm[1].totalNum}}</text>
-              <view class="device-alarm-line"></view>
-            </view>
-          </van-grid-item>
-          <van-grid-item use-slot>
-            <view class="flex flex-direction align-center justify-center">
-              <view>
-                <image class="device-alarm-img" src="/assets/home_error.png" />
-                <text class="device-alarm-title">一般</text>
-              </view>
-              <text class="device-alarm-num">{{deviceCountByAlarm[2].totalNum}}</text>
-            </view>
-          </van-grid-item>
-        </van-grid>
-      </view>
-    </view>
-    <van-panel custom-class="index-produce-status common-panel">
-      <view class="panel-header" slot="header">
-        <text class="panel-header-title">生产情况(模拟数据)</text>
-        <view class="panel-header-line"></view>
-      </view>
-      <view class="produce-status-content common-panel-content flex">
-        <view class="produce-item flex-sub flex flex-direction justify-center">
-          <view class="produce-title">今日开工率</view>
-          <text class="produce-percent">50%</text>
-          <van-progress percentage="50" show-pivot="{{ false }}" track-color="rgba(255,255,255,0.19)" color="rgba(255,255,255,0.81)" />
-        </view>
-        <view class="produce-item flex-sub flex flex-direction justify-center">
-          <view class="produce-title">今日作业率</view>
-          <text class="produce-percent">50%</text>
-          <van-progress percentage="50" show-pivot="{{ false }}" track-color="rgba(255,255,255,0.19)" color="rgba(255,255,255,0.81)" />
-        </view>
-      </view>
-    </van-panel>
-    <van-panel custom-class="index-device-distribute common-panel">
-      <view class="panel-header" slot="header">
-        <text class="panel-header-title">设备分布</text>
-        <van-tag type="warning" custom-class="panel-header-tag">TOP5</van-tag>
-        <view class="panel-header-line"></view>
-      </view>
-      <view class="device-distribute-content common-panel-content">
-        <view wx:for="{{ deviceCountByArea }}" class="device-distribute-item">
-          <view class="device-distribute-text-box flex justify-between">
-            <view class="device-distribute-address">{{ item._id.state !== null ? item._id.state : '未明确地区' }}</view>
-            <view class="device-distribute-num">{{ item.count }}</view>
-          </view>
-          <van-progress custom-class="device-distribute-progress" percentage="50" show-pivot="{{ false }}" />
-        </view>
-      </view>
-    </van-panel>
   </view>
+  <van-toast id="van-toast" />
 </view>

@@ -65,11 +65,20 @@
   <van-cell-group title="实时工况">
 		<van-panel wx:for="{{deviceRealData}}" wx:for-index="key" wx:for-item="value" custom-class="custom-panel" use-footer-slot>
 			<view class="flex justify-between" style="font-size: 14px;padding: 10px 15px;border-bottom: 1px solid #ebedf0;" slot="header">
-				<view>属性名</view>
+				<view>{{ devicePropMap[key] || '属性名' }}</view>
 				<view style="font-size: 12px;">属性ID：{{ key }}</view>
 			</view>
-			<view class="flex align-center justify-center" style="padding: 30px 0;">{{ value.value }}</view>
-			<view class="text-right" slot="footer" style="font-size: 14px;">
+			<view wx:if="{{key === '__location__'}}"
+				class="flex flex-direction align-center justify-center" style="padding: 30px 0;">
+				<view style="margin-bottom: 5px;">{{ value.country.value || '??' }}-{{ value.state.value || '???' }}-{{ value.city.value || '???' }}-{{ value.district.value || '???' }}</view>
+				<view style="margin-bottom: 5px;">经度：{{ value.longitude.value }}</view>
+				<view>纬度：{{ value.latitude.value }}</view>
+			</view>
+			<view wx:else class="flex align-center justify-center" style="padding: 30px 0;">{{ value.value }}</view>
+			<view wx:if="{{key === '__location__'}}" class="text-right" slot="footer" style="font-size: 14px;">
+				{{ value.locationSource.timeCloud }}
+			</view>
+			<view wx:else class="text-right" slot="footer" style="font-size: 14px;">
 				{{ value.timeCloud }}
 			</view>
 		</van-panel>

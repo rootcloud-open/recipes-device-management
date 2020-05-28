@@ -10,6 +10,6 @@ npm install
 ## 启动开发
 
 调试请使用演示企业和用户账号
- - 预发环境：develop.app@rootcloud.com/Zxcasd123@
+  - 获取账号，请前往 https://developer-pre.rootcloudapp.com/recipes/device-management/
 
 ## 注意事项

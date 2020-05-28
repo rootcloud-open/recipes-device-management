@@ -11,10 +11,13 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
 import { config } from "../../utils/config";
 import dayjs from 'dayjs';
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
-    deviceAlarmList: []
+    deviceAlarmList: [],
+    deviceThingMap: {},
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -23,7 +26,16 @@ Page({
     });
   },
   onShow() {
+    this.setData({
+      loading: true
+    })
+    Toast.loading({
+      duration: 5000,
+      forbidClick: true,
+      message: '加载中...',
+    });
     this.getDeviceDetail();
+    this.getDevices();
   },
   // 获取设备相关的报警
   getDeviceDetail() {
@@ -46,10 +58,38 @@ Page({
       }
     });
   },
+  // 获取设备列表
+  getDevices() {
+    wx.request({
+      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances?classId=DEVICE`,
+      method: 'GET',
+      header: {
+        Authorization: 'Bearer ' + rootcloud.token
+      },
+      success: (res) => {
+        const payload = res.data.payload;
+        const deviceThingObj = {};
+        if(payload && payload.length) {
+          payload.forEach(item => {
+            deviceThingObj[item.thingId] = item;
+          })
+        }
+        this.setData({
+          deviceThingMap: deviceThingObj
+        })
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
+      }
+    });
+  },
 
   goDeviceAlarmDetail(e) {
     const deviceInfo = e.currentTarget.dataset.item;
+    const deviceThingMap = e.currentTarget.dataset.item2;
     wx.setStorageSync('deviceAlarmInfo', JSON.stringify(deviceInfo));
+    wx.setStorageSync('deviceThingMap', JSON.stringify(deviceThingMap));
     wx.navigateTo({
       url: `/pages/alarm/detail`
     })

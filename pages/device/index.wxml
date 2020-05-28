@@ -1,4 +1,5 @@
 <view class="app-container">
+	<view wx:if="{{ !loading }}">
 	<map wx:if="{{showType === 'map'}}" class="device-map" longitude="109.072266" latitude="33.063924" scale="4" bindcontroltap="controltap" markers="{{markers}}" bindmarkertap="markertap" bindregionchange="regionchange"></map>
 	<view wx:if="{{showType === 'list'}}" class="device-list">
 		<van-cell wx:for="{{ deviceList }}" class="device-item"
@@ -33,4 +34,6 @@
 	</view>
 	<image wx:if="{{showType === 'list'}}" bindtap="toggleShowType" class="displayType-toggle" src="/assets/device/button-map.png" />
 	<image wx:if="{{showType === 'map'}}"  bindtap="toggleShowType" class="displayType-toggle" src="/assets/device/button-list.png" />
+	</view>
+	<van-toast id="van-toast" />
 </view>

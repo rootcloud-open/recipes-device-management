@@ -15,7 +15,11 @@ import dayjs from 'dayjs';
 Page({
   data: {
     value: '',
-    deviceInfo: {}
+    deviceInfo: {},
+    commandStatusMap: {
+      'active': '可用',
+      'draft': '草稿'
+    }
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {

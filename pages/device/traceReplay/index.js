@@ -48,7 +48,7 @@ Page({
     const startTime = new Date(`${nowDate} 00:00:00`).toJSON();
     const endTime = new Date(`${nowDate} 23:59:59`).toJSON();
     wx.request({
-      url: `${config.API_GATEWAY}/historian-manage/v1/historian/models/${modelId}/things/${thingId}?startTime=${startTime}&endTime=${endTime}`,
+      url: `${config.API_GATEWAY}/historian-manage/v1/historian/models/${modelId}/things/${thingId}?startTime=${startTime}&endTime=${endTime}&properties=["__location__.longitude","__location__.latitude"]`,
       method: 'GET',
       header: {
         Authorization: 'Bearer ' + rootcloud.token
@@ -60,8 +60,8 @@ Page({
           polyline: [],
           canPlay: false,
           playIndex: 0,
-          deviceTraceList: payload && payload.length ? payload[0].rows : [],
-          deviceColumnsList: payload && payload.length ? payload[0].columns : [],
+          deviceTraceList: payload && payload.length ? payload[0].rows.slice(0, 50) : [],
+          deviceColumnsList: payload && payload.length ? payload[0].columns.slice(0, 50) : [],
         });
         let longitudeIndex = 0;
         let latitudeIndex = 0;

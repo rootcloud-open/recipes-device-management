@@ -1,6 +1,6 @@
 <view class="app-container">
-	<view class="device-list">
-		<van-cell wx:for="{{ deviceAlarmList }}" data-item="{{item}}" custom-class="device-item" bind:click="goDeviceAlarmDetail" border="{{ false }}" is-link>
+	<view wx:if="{{ !loading }}" class="device-list">
+		<van-cell wx:for="{{ deviceAlarmList }}" data-item="{{item}}" data-item2="{{deviceThingMap}}" custom-class="device-item" bind:click="goDeviceAlarmDetail" border="{{ false }}" is-link>
 			<view slot="title" class="device-item-content flex">
 				<view class="device-icon-box">
 					<image wx:if="{{ item.severityName === '紧急' }}" class="device-icon" src="/assets/home_serious.png"></image>
@@ -24,7 +24,7 @@
 							<text class="device-info-text-box">故障类型：{{ item.subject }}</text>
 						</view>
 						<view class="device-info-item">
-							<text class="device-info-text-box">报警设备：{{ item.thingId }}</text>
+							<text class="device-info-text-box">报警设备：{{ deviceThingMap[item.thingId].name || '暂无' }}</text>
 						</view>
 						<view class="device-info-item">
 							<text class="device-info-text-box">报警时间：{{ item.createdTime }}</text>
@@ -35,4 +35,5 @@
 			</view>
 		</van-cell>
 	</view>
+	<van-toast id="van-toast" />
 </view>

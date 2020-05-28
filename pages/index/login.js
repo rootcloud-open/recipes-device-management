@@ -10,10 +10,11 @@
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
 import { config } from "../../utils/config";
+
 Page({
   data: {
-    user: 'develop.app@rootcloud.com',
-    password: 'Zxcasd123@'
+    user: '',
+    password: ''
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {

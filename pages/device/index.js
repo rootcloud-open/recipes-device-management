@@ -11,12 +11,14 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
 import { config } from "../../utils/config";
 import dayjs from 'dayjs';
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
     showType: 'map', // list
     markers: [],
-    deviceList: []
+    deviceList: [],
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -29,6 +31,14 @@ Page({
   },
   onShow() {
     if (rootcloud.authenticated) {
+      this.setData({
+        loading: true
+      })
+      Toast.loading({
+        duration: 5000,
+        forbidClick: true,
+        message: '加载中...',
+      });
       this.getDevices();
     }
   },
@@ -43,37 +53,34 @@ Page({
       success: (res) => {
         const payload = res.data.payload;
         if(payload && payload.length) {
-          const deviceIdList = []
           payload.forEach(item => {
             if(item.model && item.model.category && item.model.category.length) {
               const category = JSON.parse(item.model.category);
               item.model.category = category.join('/').split('/')[category.length - 1];
               item.model.categoryPath = category.join('/');
               item.deviceName = item.name;
-              item.created = dayjs(item.created).format('YYYY/MM/DD HH:mm:ss');
+              item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
             } else {
               item.model.category = [];
             }
-            deviceIdList.push({
-              deviceId: item.thingId,
-              deviceTypeId: item.model.modelId,
-              classId: 'DEVICE'
-            });
             this.setData({
-              deviceList: payload && payload.length ? payload : []
+              deviceList: payload
             });
           });
-          this.getDevicesStatusInfo(deviceIdList);
+        } else {
+          this.setData({
+            deviceList: []
+          });
         }
+        this.getDevicesStatusInfo();
       }
     });
   },
   // 获取设备状态信息
-  getDevicesStatusInfo(param) {
+  getDevicesStatusInfo() {
     wx.request({
       url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances/status`,
       method: 'GET',
-      // data: param,
       header: {
         Authorization: 'Bearer ' + rootcloud.token
       },
@@ -82,20 +89,27 @@ Page({
         const deviceList = this.data.deviceList;
         const markers = [];
         if(deviceList && deviceList.length && payload && payload.length) {
-          deviceList.forEach((item, index) => {
-            item = Object.assign(item, payload[index]);
-            item.created = dayjs(item.created).format('YYYY/MM/DD HH:mm:ss');
-            item.updated = dayjs(item.updated).format('YYYY/MM/DD HH:mm:ss');
-            item.lastActivityTime = dayjs(item.lastActivityTime).format('YYYY/MM/DD HH:mm:ss');
-            if(item.longitude && item.latitude) {
-              markers.push({
-                iconPath: "/assets/home_online.png",
-                id: 0,
-                latitude: item.latitude,
-                longitude: item.longitude,
-                width: 25,
-                height: 25
-              })
+          let deviceIdIndexMap = {};
+          payload.forEach((item, index) => {
+            deviceIdIndexMap[item.thingId] = index + 1;
+          })
+          deviceList.forEach((item) => {
+            if(deviceIdIndexMap[item.thingId]) {
+              const deviceIdIndex = deviceIdIndexMap[item.thingId];
+              item = Object.assign(item, payload[deviceIdIndex - 1]);
+              item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+              item.updated = dayjs(item.updated.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+              item.lastActivityTime = dayjs(item.lastActivityTime).format('YYYY/MM/DD HH:mm:ss');
+              if(item.longitude && item.latitude) {
+                markers.push({
+                  iconPath: "/assets/home_online.png",
+                  id: 0,
+                  latitude: item.latitude,
+                  longitude: item.longitude,
+                  width: 25,
+                  height: 25
+                })
+              }
             }
           });
           this.setData({
@@ -103,6 +117,10 @@ Page({
             markers
           });
         }
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
       }
     });
   },

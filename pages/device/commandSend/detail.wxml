@@ -15,8 +15,8 @@
 		</view>
 	</van-cell>
   <van-cell-group title="基本信息">
-    <van-cell title="下发状态">
-			<van-button type="primary" size="small">{{ deviceInfo.status }}</van-button>
+    <van-cell title="指令状态">
+			<van-button type="primary" size="small">{{ commandStatusMap[deviceInfo.status] }}</van-button>
 		</van-cell>
     <van-cell title="实时值" value="{{ deviceInfo.definition[deviceInfo.type][0].value || '无' }}" />
     <van-cell title="单位" value="{{ deviceInfo.instructionId }}" />

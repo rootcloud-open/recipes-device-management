@@ -1,7 +1,7 @@
 {
-	"projectname": "rootcloud-recipes-devicemanagement",
+	"projectname": "dm-demo-weapp",
 	"description": "rootcloud-recipes-devicemanagement",
-	"appid": "wx93bbaba7828ead99",
+	"appid": "wx10d79390d9b1c631",
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
@@ -22,7 +22,8 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": true
+		"useCompilerModule": true,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
@@ -32,5 +33,37 @@
 		"beforePreview": "",
 		"beforeUpload": ""
 	},
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": 0,
+					"name": "更新模拟模式",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				}
+			]
+		}
+	}
 }

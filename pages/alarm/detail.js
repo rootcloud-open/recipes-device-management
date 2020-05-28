@@ -16,7 +16,13 @@ Page({
   data: {
     value: '',
     deviceInfo: {},
-    deviceAlarmDetail: {}
+    deviceAlarmDetail: {},
+    deviceThingMap: {},
+    alarmAckedStateMap: {
+      'UNACKED': '未确认',
+      'ACKED': '已确认',
+      'NOTREQUIRED': '不要求确认'
+    }
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -27,8 +33,11 @@ Page({
   onShow() {
     const deviceInfo = wx.getStorageSync('deviceAlarmInfo');
     const deviceInfoObj = JSON.parse(deviceInfo);
+    const deviceThingMap = wx.getStorageSync('deviceThingMap');
+    const deviceThingMapObj = JSON.parse(deviceThingMap);
     this.setData({
-      deviceInfo: deviceInfoObj
+      deviceInfo: deviceInfoObj,
+      deviceThingMap: deviceThingMapObj
     });
     this.getDeviceAlarmDetail(deviceInfoObj.id);
   },
