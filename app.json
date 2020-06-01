@@ -51,6 +51,8 @@
   },
   "sitemapLocation": "sitemap.json",
   "usingComponents": {
+    "no-data": "components/no-data/no-data",
+    "need-login": "components/need-login/need-login",
     "van-button": "@vant/weapp/button/index",
     "van-field": "@vant/weapp/field/index",
     "van-row": "@vant/weapp/row/index",

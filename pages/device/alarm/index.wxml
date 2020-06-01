@@ -19,7 +19,7 @@
 		<van-dropdown-item value="{{ alarmCategory }}" options="{{ alarmCategoryOption }}" />
 		<van-dropdown-item value="{{ alarmClosed }}" options="{{ alarmClosedOption }}" />
 	</van-dropdown-menu>
-	<view class="device-list">
+	<view hidden="{{ loading }}" class="device-list">
 		<van-cell wx:for="{{ deviceAlarmList }}" custom-class="device-item" border="{{ false }}"
 			data-item="{{item}}" bind:click="goDeviceAlarmDetail"	is-link>
 			<view slot="title" class="device-item-content flex">
@@ -49,5 +49,7 @@
 				</view>
 			</view>
 		</van-cell>
+		<no-data wx-if="{{ !deviceAlarmList.length }}" boxHeight="70vh"></no-data>
 	</view>
+	<van-toast id="van-toast" />
 </view>

@@ -1,0 +1,1 @@
+<van-button type="primary" bind:click="gotoLogin" block>用根云账号登录</van-button>

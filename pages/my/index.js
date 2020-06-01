@@ -9,7 +9,6 @@
 
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
-import { config } from "../../utils/config";
 import jwtDecode from 'jwt-decode';
 
 Page({
@@ -33,27 +32,20 @@ Page({
       this.setData({
         userInfo
       });
+    }
+    if (rootcloud.authenticated) {
       this.getUserInfo();
     }
   },
 
   getUserInfo() {
-    wx.request({
-      url: `${config.API_GATEWAY}/account-manage/v1/user/${this.data.userInfo.user.id}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/account-manage/v1/user/${this.data.userInfo.user.id}`)	 
+      .then(res => {
         const userInfo = Object.assign(this.data.userInfo, res.data);
         this.setData({
           userInfo
         });
-      }
-    });
-  },
-
-  gotoLogin() {
-    wx.navigateTo({url: '/pages/index/login'});
+      })
   }
 });

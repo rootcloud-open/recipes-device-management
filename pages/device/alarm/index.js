@@ -11,6 +11,7 @@ import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../../utils/store";
 import { config } from "../../../utils/config";
 import dayjs from 'dayjs';
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
@@ -35,7 +36,9 @@ Page({
     alarmClosed: 0,
 
     deviceInfo: {},
-    deviceAlarmList: []
+    deviceAlarmList: [],
+    deviceThingMap: {},
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -44,23 +47,31 @@ Page({
     });
   },
   onShow() {
+    this.setData({
+      loading: true
+    })
+    Toast.loading({
+      duration: 5000,
+      forbidClick: true,
+      message: '加载中...',
+    });
     const deviceInfo = wx.getStorageSync('deviceInfo');
     const deviceInfoObj = JSON.parse(deviceInfo);
+    const deviceThingMapObj = {
+      [deviceInfoObj.thingId]: deviceInfoObj
+    }
     this.setData({
-      deviceInfo: deviceInfoObj
+      deviceInfo: deviceInfoObj,
+      deviceThingMap: deviceThingMapObj
     })
     this.getDeviceDetail(deviceInfoObj.thingId, deviceInfoObj.modelId, deviceInfoObj);
     this.getDeviceAlarm(deviceInfoObj.thingId);
   },
   // 获取设备相关的报警
   getDeviceAlarm(thingId) {
-    wx.request({
-      url: `${config.API_GATEWAY}/alarm-event/v1/historian/alarms/query/all?thingIds=["${thingId}"]&includeMetadata=true&limit=10`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/alarm-event/v1/historian/alarms/query/all?thingIds=["${thingId}"]&includeMetadata=true&limit=50`)	 
+      .then(res => {
         const payload = res.data.payload;
         if(payload && payload.length) {
           payload.forEach(item => {
@@ -68,30 +79,30 @@ Page({
           })
         }
         this.setData({
-          deviceAlarmList: payload && payload.length ? payload : []
+          deviceAlarmList: payload && payload.length ? payload.reverse() : []
         })
-      }
-    });
+      })
   },
   // 获取设备详细信息
   getDeviceDetail(thingId, modelId, deviceInfo) {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/thing/thing-classes/${modelId}/instances/${thingId}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/thing-instance/v1/thing/thing-classes/${modelId}/instances/${thingId}`)	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceInfo: Object.assign(payload, deviceInfo)
         })
-      }
-    });
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
+      })
   },
 
   goDeviceAlarmDetail(e) {
     const deviceInfo = e.currentTarget.dataset.item;
+    const deviceThingMap = this.data.deviceThingMap;
+    wx.setStorageSync('deviceThingMap', JSON.stringify(deviceThingMap));
     wx.setStorageSync('deviceAlarmInfo', JSON.stringify(deviceInfo));
     wx.navigateTo({
       url: `/pages/alarm/detail`

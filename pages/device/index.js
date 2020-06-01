@@ -9,7 +9,6 @@
 
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
-import { config } from "../../utils/config";
 import dayjs from 'dayjs';
 import Toast from '@vant/weapp/toast/toast';
 
@@ -44,13 +43,9 @@ Page({
   },
   // 获取设备列表
   getDevices() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances?classId=DEVICE`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances?classId=DEVICE")	 
+      .then(res => {
         const payload = res.data.payload;
         if(payload && payload.length) {
           payload.forEach(item => {
@@ -73,18 +68,13 @@ Page({
           });
         }
         this.getDevicesStatusInfo();
-      }
-    });
+      })
   },
   // 获取设备状态信息
   getDevicesStatusInfo() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances/status`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances/status")	 
+      .then(res => {
         const payload = res.data.payload;
         const deviceList = this.data.deviceList;
         const markers = [];
@@ -121,19 +111,14 @@ Page({
           loading: false
         })
         Toast.clear();
-      }
-    });
+      })
   },
 
   // 获取设备模型信息
   getDevicesModelInfo() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/thing/thing-classes?thingType=device`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/thing/thing-classes?thingType=device")	 
+      .then(res => {
         const payload = res.data.payload;
         const modelsById = {};
         payload.forEach(item => modelsById[item.modelId] = item);
@@ -146,16 +131,9 @@ Page({
             deviceList
           })
         }
-      }
-    });
+      })
   },
 
-  regionchange(e) {
-    console.log(e.type)
-  },
-  markertap(e) {
-    console.log(e.detail.markerId)
-  },
   toggleShowType() {
     let showType = this.data.showType === 'map' ? 'list' : 'map';
     this.setData({ showType });

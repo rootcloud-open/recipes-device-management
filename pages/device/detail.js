@@ -9,7 +9,6 @@
 
 import { createStoreBindings } from 'mobx-miniprogram-bindings';
 import { rootcloud } from "../../utils/store";
-import { config } from "../../utils/config";
 import jwtDecode from 'jwt-decode';
 import Toast from '@vant/weapp/toast/toast';
 import dayjs from 'dayjs';
@@ -18,7 +17,9 @@ Page({
   data: {
     userInfo: {},
     deviceDetail: {},
-    deviceRealData: {},
+    deviceRealtimeData: {},
+    deviceRealtimeDataLength: 0,
+    loading: true,
     devicePropMap: {
       '__location__': '当前位置',
       '__online__': '在线状态',
@@ -38,11 +39,19 @@ Page({
     });
   },
   onShow() {
+    this.setData({
+      loading: true
+    })
+    Toast.loading({
+      duration: 5000,
+      forbidClick: true,
+      message: '加载中...',
+    });
     const deviceInfo = wx.getStorageSync('deviceInfo');
     const deviceInfoObj = JSON.parse(deviceInfo);
     this.getDeviceDetail(deviceInfoObj.thingId, deviceInfoObj.modelId, deviceInfoObj);
     this.getDeviceModel(deviceInfoObj.modelId);
-    this.getDeviceRealData(deviceInfoObj.thingId, deviceInfoObj.modelId);
+    this.getDeviceRealtimeData(deviceInfoObj.thingId, deviceInfoObj.modelId);
     const token = rootcloud.token;
     if(token) {
       const userInfo = jwtDecode(token);
@@ -54,13 +63,9 @@ Page({
   },
   // 获取设备详细信息
   getDeviceDetail(thingId, modelId, deviceInfo) {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/thing/thing-classes/${modelId}/instances/${thingId}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/thing-instance/v1/thing/thing-classes/${modelId}/instances/${thingId}`)	 
+      .then(res => {
         const payload = res.data.payload;
         if(payload && Object.keys(payload).length) {
           payload.created = dayjs(payload.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
@@ -68,18 +73,13 @@ Page({
         this.setData({
           deviceDetail: Object.assign(payload, deviceInfo)
         });
-      }
-    });
+      })
   },
   // 获取设备模型信息
   getDeviceModel(modelId) {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-model/v1/thing/thing-classes/${modelId}?thingType=device&_resolve=true`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/thing-model/v1/thing/thing-classes/${modelId}?thingType=device&_resolve=true`)	 
+      .then(res => {
         const payload = res.data.payload;
         if(Object.keys(payload).length) {
           payload.created = dayjs(payload.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
@@ -87,18 +87,13 @@ Page({
         this.setData({
           deviceDetail: Object.assign(this.data.deviceDetail, payload)
         })
-      }
-    })
+      })
   },
   // 获取设备的实时工况数据
-  getDeviceRealData(thingId, modelId) {
-    wx.request({
-      url: `${config.API_GATEWAY}/realtime-manage/v1/realtime/models/${modelId}/things/${thingId}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+  getDeviceRealtimeData(thingId, modelId) {
+    let app = getApp();
+    app.request("GET", `/realtime-manage/v1/realtime/models/${modelId}/things/${thingId}`)	 
+      .then(res => {
         const payload = res.data.payload;
         if(payload && payload.length) {
           let data = payload[0].data;
@@ -116,26 +111,25 @@ Page({
           // });
         }
         this.setData({
-          deviceRealData: payload && payload.length ? payload[0].data : {}
+          deviceRealtimeData: payload && payload.length ? payload[0].data : {},
+          deviceRealtimeDataLength: payload && payload.length ? Object.keys(payload[0].data).length : 0,
         })
-      }
-    });
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
+      })
   },
 
   getUserInfo() {
-    wx.request({
-      url: `${config.API_GATEWAY}/account-manage/v1/user/${this.data.userInfo.user.id}`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/account-manage/v1/user/${this.data.userInfo.user.id}`)	 
+      .then(res => {
         const userInfo = Object.assign(this.data.userInfo, res.data);
         this.setData({
           userInfo
         });
-      }
-    });
+      })
   },
 
   goDeviceAlarm(e) {
@@ -150,11 +144,6 @@ Page({
       message: '即将上线，敬请期待',
       position: 'top'
     });
-    // const deviceInfo = e.currentTarget.dataset.item;
-    // wx.setStorageSync('deviceInfo', JSON.stringify(deviceInfo));
-    // wx.navigateTo({
-    //   url: ''
-    // })
   },
   goDeviceTraceReplay(e) {
     const deviceInfo = e.currentTarget.dataset.item;

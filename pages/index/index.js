@@ -9,7 +9,6 @@
 
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
-import { config } from "../../utils/config";
 import Toast from '@vant/weapp/toast/toast';
 
 Page({
@@ -49,63 +48,44 @@ Page({
 
   // 获取设备总数
   countDevices() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances/status/count?classId=DEVICE`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?classId=DEVICE")	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceCount: payload && payload.length ? payload[0].count : 0
         });
-      }
-    });
+      })
   },
 
   // 获取设备总数（在线）
   countOnlineDevices() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances/status/count?online=true&classId=DEVICE`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?online=true&classId=DEVICE")	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceOnlineCount: payload && payload.length ? payload[0].count : 0
         });
-      }
-    });
+      })
   },
 
   // 获取设备总数(按地区分组）
   countDevicesByArea() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances/status/count?_groupBy=%5B%22state%22%5D&classId=DEVICE`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?_groupBy=%5B%22state%22%5D&classId=DEVICE")	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceCountByArea: payload && payload.length ? payload.slice(0, 5): []
         });
-      }
-    });
+      })
   },
   // 获取报警统计
   countAlarmDevices() {
-    wx.request({
-      url: `${config.API_GATEWAY}/alarm-event/v1/historian/alarms/query/count?groupByLevel=[1,2,3,4,5]`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/alarm-event/v1/historian/alarms/query/count?groupByLevel=[1,2,3,4,5]")	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceCountByAlarm: payload && payload.length ? payload: []
@@ -123,11 +103,6 @@ Page({
           loading: false
         })
         Toast.clear();
-      }
-    });
-  },
-
-  gotoLogin() {
-    wx.navigateTo({url: '/pages/index/login'});
+      })
   }
 });

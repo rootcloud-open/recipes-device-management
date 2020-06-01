@@ -1,12 +1,12 @@
 <view class="app-container">
-  <map id="Map" class="device-map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16"
+  <map wx:if="{{ !loading }}" id="Map" class="device-map" longitude="{{longitude}}" latitude="{{latitude}}" scale="16"
     markers="{{markers}}" polyline="{{polyline}}" show-location>
   </map>
   <view class="date-box flex">
     <!-- <view class="flex-sub flex justify-center align-center">前一天</view>
     <view class="flex-sub flex justify-center align-center">今天</view>
     <view class="flex-sub flex justify-center align-center">后一天</view> -->
-    <van-cell class="flex-sub flex" title="选择日期" value="{{ date }}" bind:click="onDisplay" />
+    <van-cell class="flex-sub flex" title="选择日期" value="{{ date }}" bind:click="onDisplay" is-link />
   </view>
   <!-- <view class="map-play-box">
     <van-cell class="map-play-content flex justify-center align-center" label="描述信息" label="SKR287347468937" border="{{ false }}">
@@ -49,4 +49,5 @@
   </view>
   <van-calendar show="{{ show }}" bind:close="onClose" bind:confirm="onConfirm"
     default-date="{{ date }}" min-date="{{ minDate }}" max-date="{{ maxDate }}" color="#00B259" />
+  <van-toast id="van-toast" />
 </view>

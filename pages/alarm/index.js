@@ -9,7 +9,6 @@
 
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../utils/store";
-import { config } from "../../utils/config";
 import dayjs from 'dayjs';
 import Toast from '@vant/weapp/toast/toast';
 
@@ -26,26 +25,24 @@ Page({
     });
   },
   onShow() {
-    this.setData({
-      loading: true
-    })
-    Toast.loading({
-      duration: 5000,
-      forbidClick: true,
-      message: '加载中...',
-    });
-    this.getDeviceDetail();
-    this.getDevices();
+    if (rootcloud.authenticated) {
+      this.setData({
+        loading: true
+      })
+      Toast.loading({
+        duration: 5000,
+        forbidClick: true,
+        message: '加载中...',
+      });
+      this.getDeviceDetail();
+      this.getDevices();
+    }
   },
   // 获取设备相关的报警
   getDeviceDetail() {
-    wx.request({
-      url: `${config.API_GATEWAY}/alarm-event/v1/historian/alarms/query/all?limit=50`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/alarm-event/v1/historian/alarms/query/all?limit=100")	 
+      .then(res => {
         const payload = res.data.payload;
         if(payload && payload.length) {
           payload.forEach(item => {
@@ -53,20 +50,15 @@ Page({
           })
         }
         this.setData({
-          deviceAlarmList: payload && payload.length ? payload : []
+          deviceAlarmList: payload && payload.length ? payload.reverse() : []
         });
-      }
-    });
+      })
   },
   // 获取设备列表
   getDevices() {
-    wx.request({
-      url: `${config.API_GATEWAY}/thing-instance/v1/device/device-instances?classId=DEVICE`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", "/thing-instance/v1/device/device-instances?classId=DEVICE")	 
+      .then(res => {
         const payload = res.data.payload;
         const deviceThingObj = {};
         if(payload && payload.length) {
@@ -81,8 +73,7 @@ Page({
           loading: false
         })
         Toast.clear();
-      }
-    });
+      })
   },
 
   goDeviceAlarmDetail(e) {

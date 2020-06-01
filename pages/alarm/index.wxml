@@ -1,5 +1,5 @@
 <view class="app-container">
-	<view wx:if="{{ !loading }}" class="device-list">
+	<view hidden="{{ loading }}" class="device-list">
 		<van-cell wx:for="{{ deviceAlarmList }}" data-item="{{item}}" data-item2="{{deviceThingMap}}" custom-class="device-item" bind:click="goDeviceAlarmDetail" border="{{ false }}" is-link>
 			<view slot="title" class="device-item-content flex">
 				<view class="device-icon-box">
@@ -34,6 +34,8 @@
 				</view>
 			</view>
 		</van-cell>
+		<no-data wx-if="{{ !deviceAlarmList.length }}"></no-data>
 	</view>
+	<need-login wx:if="{{authenticated === false}}"></need-login>
 	<van-toast id="van-toast" />
 </view>

@@ -1,0 +1,3 @@
+<view class="no-data-box" style="height: {{ boxHeight }}">
+  <view class="no-data-text">暂无数据</view>
+</view>

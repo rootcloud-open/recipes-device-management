@@ -10,6 +10,7 @@
 import {createStoreBindings} from 'mobx-miniprogram-bindings'
 import {rootcloud} from "../../../utils/store";
 import {config} from "../../../utils/config";
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
@@ -25,7 +26,8 @@ Page({
     date: '',
     minDate: new Date('2020/01/01').getTime(),
     maxDate: new Date('2021/12/31').getTime(),
-    show: false
+    show: false,
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -47,13 +49,19 @@ Page({
     const nowDate = this.data.date;
     const startTime = new Date(`${nowDate} 00:00:00`).toJSON();
     const endTime = new Date(`${nowDate} 23:59:59`).toJSON();
-    wx.request({
-      url: `${config.API_GATEWAY}/historian-manage/v1/historian/models/${modelId}/things/${thingId}?startTime=${startTime}&endTime=${endTime}&properties=["__location__.longitude","__location__.latitude"]`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+
+    this.setData({
+      loading: true
+    })
+    Toast.loading({
+      duration: 5000,
+      forbidClick: true,
+      message: '加载中...',
+    });
+
+    let app = getApp();
+    app.request("GET", `/historian-manage/v1/historian/models/${modelId}/things/${thingId}?startTime=${startTime}&endTime=${endTime}&properties=["__location__.longitude","__location__.latitude"]`)	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           markers: [],
@@ -123,8 +131,11 @@ Page({
             points: this.data.polyline[0].points
           })
         }
-      }
-    });
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
+      })
   },
   playTrace() {
     const deviceTraceList = this.data.deviceTraceList;

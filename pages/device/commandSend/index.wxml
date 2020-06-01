@@ -1,5 +1,5 @@
 <view class="app-container">
-	<view class="device-list">
+	<view  hidden="{{ loading }}" class="device-list">
 		<van-cell wx:for="{{ deviceInstructionList }}" class="device-item"
 			data-item="{{item}}" bind:click="goDeviceCommandSendDetail" is-link>
 			<view slot="title" class="device-item-content flex">
@@ -18,5 +18,7 @@
 				</view>
 			</view>
 		</van-cell>
+		<no-data wx-if="{{ !deviceInstructionList.length }}"></no-data>
 	</view>
+	<van-toast id="van-toast" />
 </view>

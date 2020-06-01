@@ -13,8 +13,8 @@ import { config } from "../../utils/config";
 
 Page({
   data: {
-    user: '',
-    password: ''
+    user: 'develop.app@rootcloud.com',
+    password: 'Zxcasd123@'
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -29,19 +29,16 @@ Page({
     wx.showLoading({
       title: '登录中'
     });
-    wx.request({
-      url: `${config.API_GATEWAY}/account-manage/v1/auth/login`,
-      method: 'POST',
-      data: {
-        "username": this.data.user,
-        "password": this.data.password,
-        "grant_type": "password",
-        "client_id": `${config.CLIENT_ID}`,
-        "client_secret": `${config.CLIENT_SECRET}`,
-        "company": `${config.COMPANY}`
-      },
-      dataType: 'json',
-      success: (res) => {
+    let app = getApp();
+    app.request("POST", "/account-manage/v1/auth/login", {}, {
+      "username": this.data.user,
+      "password": this.data.password,
+      "grant_type": "password",
+      "client_id": `${config.CLIENT_ID}`,
+      "client_secret": `${config.CLIENT_SECRET}`,
+      "company": `${config.COMPANY}`
+    })
+      .then(res => {
         if (res.statusCode === 200) {
           this.login(res.data.access_token);
           wx.navigateBack();
@@ -52,10 +49,7 @@ Page({
           icon: 'none',
           duration: 2000
         });
-      },
-      complete() {
         wx.hideLoading();
-      }
-    });
+      })
   }
 });

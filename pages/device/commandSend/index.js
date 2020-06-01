@@ -10,11 +10,13 @@
 import { createStoreBindings } from 'mobx-miniprogram-bindings'
 import { rootcloud } from "../../../utils/store";
 import { config } from "../../../utils/config";
+import Toast from '@vant/weapp/toast/toast';
 
 Page({
   data: {
     deviceInfo: {},
-    deviceInstructionList: []
+    deviceInstructionList: [],
+    loading: true
   },
   onLoad() {
     this.storeBindings = createStoreBindings(this, {
@@ -23,6 +25,14 @@ Page({
     });
   },
   onShow() {
+    this.setData({
+      loading: true
+    })
+    Toast.loading({
+      duration: 5000,
+      forbidClick: true,
+      message: '加载中...',
+    });
     const deviceInfo = wx.getStorageSync('deviceInfo');
     const deviceInfoObj = JSON.parse(deviceInfo);
     this.setData({
@@ -32,19 +42,18 @@ Page({
   },
   // 获取设备对应模型的指令列表
   getDeviceModelInstruction(modelId) {
-    wx.request({
-      url: `${config.API_GATEWAY}/instruction/v1/thing/thing-models/${modelId}/instruction-templates?includeActiveNum=true`,
-      method: 'GET',
-      header: {
-        Authorization: 'Bearer ' + rootcloud.token
-      },
-      success: (res) => {
+    let app = getApp();
+    app.request("GET", `/instruction/v1/thing/thing-models/${modelId}/instruction-templates?includeActiveNum=true`)	 
+      .then(res => {
         const payload = res.data.payload;
         this.setData({
           deviceInstructionList: payload && payload.length ? payload : []
         })
-      }
-    });
+        this.setData({
+          loading: false
+        })
+        Toast.clear();
+      })
   },
 
   goDeviceCommandSendDetail(e) {

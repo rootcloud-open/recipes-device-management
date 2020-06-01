@@ -1,7 +1,6 @@
 <view class="index-page app-container">
-  <van-button wx:if="{{authenticated === false}}" type="primary" bind:click="gotoLogin" block>用根云账号登录</van-button>
-  <view wx:else>
-    <view wx:if="{{ !loading }}">
+  <view hidden="{{authenticated === false}}">
+    <view hidden="{{ loading }}">
       <view class="index-device-total flex flex-direction align-center justify-center">
         <view class="device-total-title">设备总数</view>
         <text class="device-total-num">{{ deviceCount }}</text>
@@ -119,5 +118,6 @@
       </van-panel>
     </view>
   </view>
+  <need-login wx:if="{{authenticated === false}}"></need-login>
   <van-toast id="van-toast" />
 </view>
