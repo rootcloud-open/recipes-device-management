@@ -3,6 +3,11 @@ import { config } from "./utils/config";
 
 App({
   onLaunch() {
+    //设置默认分享
+    this.globalData.shareData = {
+      title: "根云设备管理示例应用"
+    }
+
     rootcloud.init();
     this.checkUpdateVersion();
   },
@@ -80,5 +85,13 @@ App({
         content: '当前微信版本过低，无法使用该功能，请升级到最新微信版本后重试。'
       })
     }
+  },
+
+  globalData: {
+    //默认分享文案
+    shareData: {},
+    qrCodeScene: false, //二维码扫码进入传参
+    systeminfo: false,   //系统信息
+    headerBtnPosi: false,  //头部菜单高度
   }
 });

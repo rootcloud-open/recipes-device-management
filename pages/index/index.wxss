@@ -59,6 +59,7 @@
 }
 
 .index-device-status .device-status-num {
+  margin-top: 10rpx;
   color: #505363;
   font-family: "DIN Alternate";
   font-size: 48rpx;
@@ -101,12 +102,13 @@
 }
 
 .index-device-alarm-box .device-alarm-total-num {
+  margin-top: 10rpx;
   color: #505363;
   font-family: "DIN Alternate";
-  font-size: 48rpx;
+  font-size: 44rpx;
   font-weight: bold;
   letter-spacing: 0;
-  line-height: 48rpx;
+  line-height: 44rpx;
 }
 
 .index-device-alarm-box .device-alarm-line {
@@ -138,6 +140,7 @@
 }
 
 .index-device-alarm .device-alarm-num {
+  margin-top: 10rpx;
   color: #505363;
   font-family: "DIN Alternate";
   font-size: 40rpx;

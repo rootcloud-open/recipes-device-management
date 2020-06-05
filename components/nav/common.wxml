@@ -1,0 +1,30 @@
+<view class="custom_nav" style="height:{{navbarHeight}}px;">
+  <view class="custom_nav_box" style="height:{{navbarHeight}}px;">
+    <view class="custom_nav_bar" style="top:{{statusBarHeight}}px; height:{{cusnavH}}px;">
+      <block wx:if="{{isSearch}}">
+        <input class="navSearch"style="height:{{navbarBtn.height-2}}px;line-height:{{navbarBtn.height-4}}px; top:{{navbarBtn.top+1}}px; left:{{navbarBtn.right}}px; border-radius:{{navbarBtn.height/2}}px;" maxlength="10" bindinput="bindKeyInput" placeholder="输入文字搜索"/>
+      </block>
+      <block wx:else>
+        <view wx:if="{{vTitleImg}}" class="nav_title" style="height:{{cusnavH}}px; line-height:{{cusnavH}}px;">
+          <image class="nav_title_img" src="{{vTitleImg}}"></image>
+        </view>
+        <view wx:else>
+          <view class="custom_nav_icon {{!haveBack||'borderLine'}}" style="height:{{navbarBtn.height}}px;line-height:{{navbarBtn.height-2}}px; top:{{navbarBtn.top}}px; left:{{navbarBtn.right}}px; border-radius:{{navbarBtn.height/2}}px;">
+            <view wx:if="{{haveBack}}" class="icon-back" bindtap='_goBack'>
+              <image src='/assets/common/back.png' mode='aspectFill' class='back-pre'></image>
+            </view>
+            <view wx:if="{{haveBack}}" class='navbar-v-line'></view>
+            <view class="icon-home">
+              <navigator class="home_a" url="/pages/index/index" open-type="switchTab">
+                <image src='/assets/common/home.png' mode='aspectFill' class='back-home'></image>
+              </navigator>
+            </view>
+          </view>
+          <view class="nav_title" style="height:{{cusnavH}}px; line-height:{{cusnavH}}px;">
+            {{vTitle}}
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

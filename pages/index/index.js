@@ -1,14 +1,18 @@
 /*
-* Licensed Materials - Property of ROOTCLOUD
-* THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
-* (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
-*
-* The source code for this program is not published or
-* otherwise divested of its trade secrets
-*/
+ * Licensed Materials - Property of ROOTCLOUD
+ * THIS MODULE IS "RESTRICTED MATERIALS OF ROOTCLOUD"
+ * (c) Copyright ROOTCLOUD Inc. 2020 All Rights Reserved
+ *
+ * The source code for this program is not published or
+ * otherwise divested of its trade secrets
+ */
 
-import { createStoreBindings } from 'mobx-miniprogram-bindings'
-import { rootcloud } from "../../utils/store";
+import {
+  createStoreBindings
+} from 'mobx-miniprogram-bindings'
+import {
+  rootcloud
+} from "../../utils/store";
 import Toast from '@vant/weapp/toast/toast';
 
 Page({
@@ -49,7 +53,7 @@ Page({
   // 获取设备总数
   countDevices() {
     let app = getApp();
-    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?classId=DEVICE")	 
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?classId=DEVICE")
       .then(res => {
         const payload = res.data.payload;
         this.setData({
@@ -61,7 +65,7 @@ Page({
   // 获取设备总数（在线）
   countOnlineDevices() {
     let app = getApp();
-    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?online=true&classId=DEVICE")	 
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?online=true&classId=DEVICE")
       .then(res => {
         const payload = res.data.payload;
         this.setData({
@@ -73,24 +77,24 @@ Page({
   // 获取设备总数(按地区分组）
   countDevicesByArea() {
     let app = getApp();
-    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?_groupBy=%5B%22state%22%5D&classId=DEVICE")	 
+    app.request("GET", "/thing-instance/v1/device/device-instances/status/count?_groupBy=%5B%22state%22%5D&classId=DEVICE")
       .then(res => {
         const payload = res.data.payload;
         this.setData({
-          deviceCountByArea: payload && payload.length ? payload.slice(0, 5): []
+          deviceCountByArea: payload && payload.length ? payload.slice(0, 5) : []
         });
       })
   },
   // 获取报警统计
   countAlarmDevices() {
     let app = getApp();
-    app.request("GET", "/alarm-event/v1/historian/alarms/query/count?groupByLevel=[1,2,3,4,5]")	 
+    app.request("GET", "/alarm-event/v1/historian/alarms/query/count?groupByLevel=[1,2,3,4,5]")
       .then(res => {
         const payload = res.data.payload;
         this.setData({
-          deviceCountByAlarm: payload && payload.length ? payload: []
+          deviceCountByAlarm: payload && payload.length ? payload : []
         });
-        if(payload && payload.length) {
+        if (payload && payload.length) {
           let alarmCount = 0;
           payload.forEach(item => {
             alarmCount += item.totalNum;
@@ -104,5 +108,17 @@ Page({
         })
         Toast.clear();
       })
+  },
+
+  /**
+   * 获取公共顶部菜单的高度
+   * @param {object} e 
+   */
+  commonNavAttr(e) {
+    if (e.detail) {
+      this.setData({
+        commonNavAttr: e.detail
+      })
+    }
   }
 });
