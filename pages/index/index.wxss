@@ -62,7 +62,7 @@
   margin-top: 10rpx;
   color: #505363;
   font-family: "DIN Alternate";
-  font-size: 48rpx;
+  font-size: 44rpx;
   font-weight: bold;
   letter-spacing: 0;
   line-height: 40rpx;

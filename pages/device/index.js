@@ -57,6 +57,8 @@ Page({
               item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
             } else {
               item.model.category = [];
+              item.deviceName = item.name;
+              item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
             }
             this.setData({
               deviceList: payload
@@ -87,8 +89,12 @@ Page({
             if(deviceIdIndexMap[item.thingId]) {
               const deviceIdIndex = deviceIdIndexMap[item.thingId];
               item = Object.assign(item, payload[deviceIdIndex - 1]);
-              item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
-              item.updated = dayjs(item.updated.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+              if(item.created) {
+                item.created = dayjs(item.created.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+              }
+              if(item.updated) {
+                item.updated = dayjs(item.updated.replace('+0000', '')).format('YYYY/MM/DD HH:mm:ss');
+              }
               item.lastActivityTime = dayjs(item.lastActivityTime).format('YYYY/MM/DD HH:mm:ss');
               if(item.longitude && item.latitude) {
                 markers.push({
