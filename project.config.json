@@ -1,5 +1,5 @@
 {
-	"projectname": "dm-demo-weapp",
+	"projectname": "recipes-device-management",
 	"description": "rootcloud-recipes-devicemanagement",
 	"appid": "wx10d79390d9b1c631",
 	"setting": {
@@ -9,11 +9,11 @@
 		"preloadBackgroundData": false,
 		"minified": false,
 		"newFeature": true,
-		"coverView": true,
-		"nodeModules": true,
 		"autoAudits": false,
+		"coverView": true,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
+		"nodeModules": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -22,7 +22,7 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"useCompilerModule": false,
+		"useCompilerModule": true,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
